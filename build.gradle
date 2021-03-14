@@ -48,8 +48,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
-            //arg "-mixin.config=cousinware.mixins.json"
-            arg "-mixin.config=mixin.nordclient.json"
+            arg "-mixin.config=cousinware.mixins.json"
             // Recommended logging data for a userdev environment
             // The markers can be changed as needed.
             // "SCAN": For mods scan.
@@ -71,7 +70,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=mixin.nordclient.json"
+            arg "-mixin.config=cousinware.mixins.json"
             // Recommended logging data for a userdev environment
             // The markers can be changed as needed.
             // "SCAN": For mods scan.
@@ -93,7 +92,7 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-            arg "-mixin.config=mixin.nordclient.json"
+            arg "-mixin.config=cousinware.mixins.json"
             // Recommended logging data for a userdev environment
             // The markers can be changed as needed.
             // "SCAN": For mods scan.
@@ -189,8 +188,7 @@ shadowJar {
 
 mixin {
     //defaultObfuscationEnv searge
-    add sourceSets.main, "mixin.nordclient.refmap.json"
-    //add sourceSets.main, 'cousinware.refmap.json'
+    add sourceSets.main, 'cousinware.refmap.json'
 }
 
 reobf {
@@ -214,7 +212,6 @@ jar {
                 "Implementation-Vendor" :"examplemodsareus",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 "MixinConfigs": "cousinware.mixins.json"
-                //"MixinConfigs": "mixin.nordclient.json"
 
         ])
     }
