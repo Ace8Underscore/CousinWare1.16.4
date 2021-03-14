@@ -146,7 +146,7 @@ dependencies {
     compile group: 'com.github.oshi', name: 'oshi-core', version: '5.3.4'
     compile group: "org.slf4j", name : "slf4j-simple", version: "1.6.1"
     compile "com.github.ZeroMemes:Alpine:1.5"
-    minecraft 'net.minecraftforge:forge:1.16.5-36.0.00'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.0.58'
 
 
 
