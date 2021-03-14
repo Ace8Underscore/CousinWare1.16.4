@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.hacks.render.BlockHighlight;
 import io.ace.nordclient.hacks.render.SkyColor;
@@ -28,26 +28,23 @@ import static org.lwjgl.opengl.GL11.*;
 @Mixin(RenderGlobal.class)
 public abstract class MixinRenderGlobal {
 
-    @Shadow
-    private WorldClient world;
-
     /**
      * @author Ace________
-     *
-     *
      */
 
 //
-    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("cousinware:textures/loren.png");
+    /*private static final ResourceLocation SUN_TEXTURES = new ResourceLocation("cousinware:textures/loren.png");
+    @Shadow
+    private WorldClient world;
     private TextureManager renderEngine;
 
-/*    @Inject(method = "renderSky(FI)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bindTexture(Lnet/minecraft/util/ResourceLocation;)V"), cancellable = true)
-    public void renderSky(float partialTicks, int pass, CallbackInfo info) {
-        info.cancel();
-        this.renderEngine.bindTexture(new ResourceLocation("textures/loren.PNG"));
-    }
- */
-    @Inject(method = "drawSelectionBox", at = @At("HEAD"), cancellable = true)
+    /*    @Inject(method = "renderSky(FI)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bindTexture(Lnet/minecraft/util/ResourceLocation;)V"), cancellable = true)
+        public void renderSky(float partialTicks, int pass, CallbackInfo info) {
+            info.cancel();
+            this.renderEngine.bindTexture(new ResourceLocation("textures/loren.PNG"));
+        }
+     */
+  /*  @Inject(method = "drawSelectionBox", at = @At("HEAD"), cancellable = true)
     public void drawSelectionBox(EntityPlayer player, RayTraceResult movingObjectPositionIn, int execute, float partialTicks, CallbackInfo info) {
         if (HackManager.getHackByName("BlockHighlight").isEnabled() && BlockHighlight.legit.getValBoolean()) {
             if (execute == 0 && movingObjectPositionIn.typeOfHit == RayTraceResult.Type.BLOCK) {
@@ -100,5 +97,5 @@ public abstract class MixinRenderGlobal {
         }
     }
 
-    }
+} */
 

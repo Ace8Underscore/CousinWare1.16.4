@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.mixin.accessor.ICPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -19,7 +19,6 @@ public abstract class MixinCPacketPlayer implements ICPacketPlayer {
     protected float yaw;
     @Shadow
     protected float pitch;
-
 
 
     @Shadow
@@ -55,4 +54,4 @@ public abstract class MixinCPacketPlayer implements ICPacketPlayer {
         this.onGround = onGround;
     }
 
-}
+} */

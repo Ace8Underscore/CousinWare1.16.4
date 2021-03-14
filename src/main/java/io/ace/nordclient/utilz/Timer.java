@@ -8,19 +8,19 @@ public class Timer {
     }
 
     public boolean passedS(final double s) {
-        return this.getMs(System.nanoTime() - this.time) >= (long)(s * 1000.0);
+        return this.getMs(System.nanoTime() - this.time) >= (long) (s * 1000.0);
     }
 
     public boolean passedM(final double m) {
-        return this.getMs(System.nanoTime() - this.time) >= (long)(m * 1000.0 * 60.0);
+        return this.getMs(System.nanoTime() - this.time) >= (long) (m * 1000.0 * 60.0);
     }
 
     public boolean passedDms(final double dms) {
-        return this.getMs(System.nanoTime() - this.time) >= (long)(dms * 10.0);
+        return this.getMs(System.nanoTime() - this.time) >= (long) (dms * 10.0);
     }
 
     public boolean passedDs(final double ds) {
-        return this.getMs(System.nanoTime() - this.time) >= (long)(ds * 100.0);
+        return this.getMs(System.nanoTime() - this.time) >= (long) (ds * 100.0);
     }
 
     public boolean passedMs(final long ms) {

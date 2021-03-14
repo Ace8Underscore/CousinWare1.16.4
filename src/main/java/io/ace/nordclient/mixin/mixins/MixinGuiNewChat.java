@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.managers.HackManager;
@@ -22,19 +22,18 @@ import java.util.List;
 public abstract class MixinGuiNewChat {
     @Shadow
     @Final
+    public static Logger LOGGER;
+    @Shadow
+    @Final
     public List<ChatLine> chatLines;
 
     @Shadow
     protected abstract void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly);
 
-    @Shadow
-    @Final
-    public static Logger LOGGER;
-
     /**
      * @author Ace________
      */
-
+/*
     @Redirect(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
     private int drawChatCustom(final FontRenderer fontRenderer, final String m, final float x, final float y, final int color) {
         int returnInt;
@@ -52,6 +51,6 @@ public abstract class MixinGuiNewChat {
         CousinWare.INSTANCE.fontRenderer.getHeight();
     }
 
-}
+} */
 
 

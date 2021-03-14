@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.mixin.accessor.ISPacketPlayerPosLook;
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
@@ -30,21 +30,13 @@ public abstract class MixinSPacketPlayerPosLook implements ISPacketPlayerPosLook
     protected int teleportId;
 
     @Override
-    public Set<SPacketPlayerPosLook.EnumFlags> getFlags() { return this.flags; }
+    public Set<SPacketPlayerPosLook.EnumFlags> getFlags() {
+        return this.flags;
+    }
 
     @Override
     public double getX() {
         return this.x;
-    }
-
-    @Override
-    public double getY() {
-        return this.y;
-    }
-
-    @Override
-    public double getZ() {
-        return this.z;
     }
 
     @Override
@@ -53,8 +45,18 @@ public abstract class MixinSPacketPlayerPosLook implements ISPacketPlayerPosLook
     }
 
     @Override
+    public double getY() {
+        return this.y;
+    }
+
+    @Override
     public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public double getZ() {
+        return this.z;
     }
 
     @Override
@@ -63,10 +65,9 @@ public abstract class MixinSPacketPlayerPosLook implements ISPacketPlayerPosLook
     }
 
     @Override
-    public float getYaw() {return this.yaw;}
-
-    @Override
-    public float getPitch() {return this.pitch;}
+    public float getYaw() {
+        return this.yaw;
+    }
 
     @Override
     public void setYaw(float yaw) {
@@ -74,10 +75,17 @@ public abstract class MixinSPacketPlayerPosLook implements ISPacketPlayerPosLook
     }
 
     @Override
-    public void setPitch(float pitch) { this.pitch = pitch;}
+    public float getPitch() {
+        return this.pitch;
+    }
+
+    @Override
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
 
     @Override
     public int getTeleportId() {
         return teleportId;
     }
-}
+} */

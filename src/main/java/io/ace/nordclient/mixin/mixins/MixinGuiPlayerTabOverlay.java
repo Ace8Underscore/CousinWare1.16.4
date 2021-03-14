@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.hacks.render.FriendTab;
 import io.ace.nordclient.managers.FriendManager;
@@ -17,8 +17,8 @@ public abstract class MixinGuiPlayerTabOverlay {
 
     @Inject(method = "getPlayerName", at = @At("HEAD"), cancellable = true)
     public void getPlayerName(NetworkPlayerInfo networkPlayerInfoIn, CallbackInfoReturnable returnable) {
-            returnable.cancel();
-            returnable.setReturnValue(getPlayerNames(networkPlayerInfoIn));
+        returnable.cancel();
+        returnable.setReturnValue(getPlayerNames(networkPlayerInfoIn));
     }
 
     public String getPlayerNames(NetworkPlayerInfo networkPlayerInfoIn) {
@@ -27,4 +27,4 @@ public abstract class MixinGuiPlayerTabOverlay {
         else return dname;
     }
 
-}
+} */

@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -15,4 +15,4 @@ public class MixinRenderPlayer {
 
     } */
 
-}
+//} */

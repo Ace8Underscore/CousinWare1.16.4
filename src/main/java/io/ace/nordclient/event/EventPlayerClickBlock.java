@@ -1,13 +1,13 @@
 package io.ace.nordclient.event;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
 public class EventPlayerClickBlock extends EventCancellable {
     public BlockPos Location;
-    public EnumFacing Facing;
+    public Direction Facing;
 
-    public EventPlayerClickBlock(BlockPos loc, EnumFacing face) {
+    public EventPlayerClickBlock(BlockPos loc, Direction face) {
         Location = loc;
         Facing = face;
     }

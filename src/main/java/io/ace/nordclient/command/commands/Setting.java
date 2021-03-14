@@ -18,16 +18,16 @@ public class Setting extends Command {
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
-        for(Hack h : HackManager.getHacks()) {
-            if(h.getName().equalsIgnoreCase(args[0])) {
-                CousinWare.INSTANCE.settingsManager.getSettingsByMod(h).forEach(s->{
-                    if(s.isSlider()) {
+        for (Hack h : HackManager.getHacks()) {
+            if (h.getName().equalsIgnoreCase(args[0])) {
+                CousinWare.INSTANCE.settingsManager.getSettingsByMod(h).forEach(s -> {
+                    if (s.isSlider()) {
                         Command.sendClientSideMessage("Slider Setting " + s.getDisplayName() + ": Value " + s.getValDouble());
                     }
-                    if(s.isCheck()){
+                    if (s.isCheck()) {
                         Command.sendClientSideMessage("Boolean Setting " + s.getDisplayName() + ": Value " + s.getValBoolean());
                     }
-                    if(s.isCombo()){
+                    if (s.isCombo()) {
                         Command.sendClientSideMessage("Mode Setting " + s.getDisplayName() + ": Value " + s.getValString());
                     }
                    /* if(s.isColorPicker()){

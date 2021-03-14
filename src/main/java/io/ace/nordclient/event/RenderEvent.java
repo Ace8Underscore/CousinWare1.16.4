@@ -1,21 +1,21 @@
-package io.ace.nordclient.event;
+/*package io.ace.nordclient.event;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class RenderEvent {
-        private final Tessellator tessellator;
-        private final Vec3d renderPos;
-        private final float partialTicks;
+    private final Tessellator tessellator;
+    private final Vector3d renderPos;
+    private final float partialTicks;
     ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
-        public RenderEvent(Tessellator tessellator, Vec3d renderPos, float ticks) {
-            this.tessellator = tessellator;
-            this.renderPos = renderPos;
-            partialTicks = ticks;
-        }
+
+    public RenderEvent(Tessellator tessellator, Vec3d renderPos, float ticks) {
+        this.tessellator = tessellator;
+        this.renderPos = renderPos;
+        partialTicks = ticks;
+    }
 
     public double getScreenWidth() {
         return resolution.getScaledWidth_double();
@@ -26,18 +26,18 @@ public class RenderEvent {
     }
 
     public BufferBuilder getBuffer() {
-            return tessellator.getBuffer();
-        }
+        return tessellator.getBuffer();
+    }
 
     public void setTranslation(Vec3d translation) {
-            getBuffer().setTranslation(-translation.x, -translation.y, -translation.z);
-        }
+        getBuffer().setTranslation(-translation.x, -translation.y, -translation.z);
+    }
 
-        public void resetTranslation() {
-            setTranslation(renderPos);
-        }
+    public void resetTranslation() {
+        setTranslation(renderPos);
+    }
 
-        public float getPartialTicks(){
-            return partialTicks;
-        }
-}
+    public float getPartialTicks() {
+        return partialTicks;
+    }
+} */

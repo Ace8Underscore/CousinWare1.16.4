@@ -20,13 +20,14 @@ public class ReloadSound extends Command {
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
-        try {
+   /*     try {
             mc.getSoundHandler().sndManager.reloadSoundSystem();
             Command.sendClientSideMessage("Reloaded Sounds");
-        }catch (Exception e) {
+        } catch (Exception e) {
             Command.sendClientSideMessage("Failed To Reload Sounds");
 
         }
-    }
+    }*/
 
+    }
 }

@@ -1,13 +1,6 @@
 package io.ace.nordclient.managers;
 
-import io.ace.nordclient.event.RenderEvent;
 import io.ace.nordclient.hacks.Hack;
-import io.ace.nordclient.utilz.NordTessellator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -18,10 +11,10 @@ import java.util.stream.Collectors;
 
 public class HackManager {
     public static ArrayList<Hack> hacks;
-    private static String allHackNames = "Hacks: ";
+    private static final String allHackNames = "Hacks: ";
     private static String officialAllHackNames;
 
-    public static void addHack(Hack h){
+    public static void addHack(Hack h) {
         hacks.add(h);
     }
 
@@ -29,8 +22,8 @@ public class HackManager {
         return hacks;
     }
 
-    public static Hack getHackByName(String name){
-        return getHacks().stream().filter(hm->hm.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    public static Hack getHackByName(String name) {
+        return getHacks().stream().filter(hm -> hm.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public static void onUpdate() {
@@ -47,20 +40,20 @@ public class HackManager {
         return officialAllHackNames;
     }
 
-    public static ArrayList<Hack> getHacksInCategory(Hack.Category c){
+    public static ArrayList<Hack> getHacksInCategory(Hack.Category c) {
         return (ArrayList<Hack>) getHacks().stream().filter(h -> h.getCategory().equals(c)).collect(Collectors.toList());
     }
 
-    public static void onWorldRender(RenderWorldLastEvent event) {
-        Minecraft.getMinecraft().profiler.startSection("nordClient");
+    /*public static void onWorldRender(RenderWorldLastEvent event) {
+        Minecraft.getInstance().getProfiler().startSection("nordClient");
 
-        Minecraft.getMinecraft().profiler.startSection("setup");
-        GlStateManager.disableTexture2D();
+        Minecraft.getInstance().getProfiler().startSection("setup");
+        GlStateManager.disableTexture();
         GlStateManager.enableBlend();
-        GlStateManager.disableAlpha();
+        GlStateManager.disableAlphaTest();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
         GlStateManager.shadeModel(GL11.GL_SMOOTH);
-        GlStateManager.disableDepth();
+        GlStateManager.disableDepthTest();
 
         GlStateManager.glLineWidth(1f);
         Vec3d renderPos = NordTessellator.getInterpolatedPos(Minecraft.getMinecraft().player, event.getPartialTicks());
@@ -86,13 +79,13 @@ public class HackManager {
         NordTessellator.releaseGL();
         Minecraft.getMinecraft().profiler.endSection();
         Minecraft.getMinecraft().profiler.endSection();
-    }
+    } */
 
 
     public static void onBind(int key) {
         if (key == 0) return;
         hacks.forEach(hack -> {
-            if(hack.getBind() == key){
+            if (hack.getBind() == key) {
                 hack.toggle();
             }
         });

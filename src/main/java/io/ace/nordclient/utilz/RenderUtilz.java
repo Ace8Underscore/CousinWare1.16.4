@@ -1,4 +1,4 @@
-package io.ace.nordclient.utilz;
+/*package io.ace.nordclient.utilz;
 
 import io.ace.nordclient.CousinWare;
 import net.minecraft.client.Minecraft;
@@ -10,15 +10,16 @@ public class RenderUtilz {
 
     public static void drawText(final float x, final float y, final float z, final String text) {
         GlStateManager.pushMatrix();
-        glBillboardDistanceScaled(x + 0.5f, y + 0.5f, z + 0.5f, (EntityPlayer)mc.player, 1.0f);
+        glBillboardDistanceScaled(x + 0.5f, y + 0.5f, z + 0.5f, (EntityPlayer) mc.player, 1.0f);
         GlStateManager.disableDepth();
         GlStateManager.translate(-(mc.fontRenderer.getStringWidth(text) / 2.0), 0.0, 0.0);
         mc.fontRenderer.drawStringWithShadow(text, 0.0f, 0.0f, -5592406);
         GlStateManager.popMatrix();
     }
+
     public static void drawTextCustom(final float x, final float y, final float z, final String text) {
         GlStateManager.pushMatrix();
-        glBillboardDistanceScaled(x + 0.5f, y + 0.5f, z + 0.5f, (EntityPlayer)mc.player, 1.0f);
+        glBillboardDistanceScaled(x + 0.5f, y + 0.5f, z + 0.5f, (EntityPlayer) mc.player, 1.0f);
         GlStateManager.disableDepth();
         GlStateManager.translate(-(CousinWare.INSTANCE.fontRenderer.getStringWidth(text) / 2.0), 0.0, 0.0);
         CousinWare.INSTANCE.fontRenderer.drawStringWithShadow(text, 0.0f, 0.0f, -5592406);
@@ -27,7 +28,7 @@ public class RenderUtilz {
 
     public static void glBillboardDistanceScaled(final float x, final float y, final float z, final EntityPlayer player, final float scale) {
         glBillboard(x, y, z);
-        final int distance = (int)player.getDistance(x, y, z);
+        final int distance = (int) player.getDistance(x, y, z);
         float scaleDistance = distance / 2.0f / (2.0f + (2.0f - scale));
         if (scaleDistance < 1.0f) {
             scaleDistance = 1.0f;
@@ -45,4 +46,4 @@ public class RenderUtilz {
     }
 
 
-}
+} */

@@ -1,6 +1,6 @@
 package io.ace.nordclient.utilz.font;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
 
@@ -13,34 +13,37 @@ import java.util.List;
  */
 public class CFontRenderer extends CFont {
 
+    private final int[] colorCode = new int[32];
+    private final String colorcodeIdentifiers = "0123456789abcdefklmnor";
     protected CharData[] boldChars = new CharData[256];
     protected CharData[] italicChars = new CharData[256];
     protected CharData[] boldItalicChars = new CharData[256];
-
-    private final int[] colorCode = new int[32];
-    private final String colorcodeIdentifiers = "0123456789abcdefklmnor";
+    protected DynamicTexture texBold;
+    protected DynamicTexture texItalic;
+    protected DynamicTexture texItalicBold;
+    String fontName;
+    int fontSize;
 
     public CFontRenderer(Font font, boolean antiAlias, boolean fractionalMetrics) {
         super(font, antiAlias, fractionalMetrics);
         setupMinecraftColorcodes();
         setupBoldItalicIDs();
-        
+
     }
-    String fontName;
-    int fontSize;
-    public String getFontName(){
+
+    public String getFontName() {
         return fontName;
     }
 
-    public int getFontSize(){
-        return fontSize;
-    }
-
-    public void setFontName(String newName){
+    public void setFontName(String newName) {
         fontName = newName;
     }
 
-    public void setFontSize(int newSize){
+    public int getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(int newSize) {
         fontSize = newSize;
     }
 
@@ -90,12 +93,14 @@ public class CFontRenderer extends CFont {
         y *= 2.0D;
         if (render) {
             GL11.glPushMatrix();
-            GlStateManager.scale(0.5D, 0.5D, 0.5D);
+            GlStateManager.scaled(0.5D, 0.5D, 0.5D);
             GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
-            GlStateManager.color((color >> 16 & 0xFF) / 255.0F, (color >> 8 & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, alpha);
+            GlStateManager.color4f((color >> 16 & 0xFF) / 255.0F, (color >> 8 & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, alpha);
             int size = text.length();
-            GlStateManager.enableTexture2D();
+            // ?
+            GlStateManager.enableTexture();
+            // ?
             GlStateManager.bindTexture(tex.getGlTextureId());
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, tex.getGlTextureId());
             for (int i = 0; i < size; i++) {
@@ -119,7 +124,7 @@ public class CFontRenderer extends CFont {
                         if ((colorIndex < 0) || (colorIndex > 15)) colorIndex = 15;
                         if (shadow) colorIndex += 16;
                         int colorcode = this.colorCode[colorIndex];
-                        GlStateManager.color((colorcode >> 16 & 0xFF) / 255.0F, (colorcode >> 8 & 0xFF) / 255.0F, (colorcode & 0xFF) / 255.0F, alpha);
+                        GlStateManager.color4f((colorcode >> 16 & 0xFF) / 255.0F, (colorcode >> 8 & 0xFF) / 255.0F, (colorcode & 0xFF) / 255.0F, alpha);
                     } else if (colorIndex == 16) randomCase = true;
                     else if (colorIndex == 17) {
                         bold = true;
@@ -155,7 +160,7 @@ public class CFontRenderer extends CFont {
                         randomCase = false;
                         underline = false;
                         strikethrough = false;
-                        GlStateManager.color((color >> 16 & 0xFF) / 255.0F, (color >> 8 & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, alpha);
+                        GlStateManager.color4f((color >> 16 & 0xFF) / 255.0F, (color >> 8 & 0xFF) / 255.0F, (color & 0xFF) / 255.0F, alpha);
                         GlStateManager.bindTexture(tex.getGlTextureId());
                         // GL11.glBindTexture(GL11.GL_TEXTURE_2D,
                         // tex.getGlTextureId());
@@ -166,8 +171,10 @@ public class CFontRenderer extends CFont {
                     GL11.glBegin(4);
                     drawChar(currentData, character, (float) x, (float) y);
                     GL11.glEnd();
-                    if (strikethrough) drawLine(x, y + currentData[character].height / 2, x + currentData[character].width - 8.0D, y + currentData[character].height / 2, 1.0F);
-                    if (underline) drawLine(x, y + currentData[character].height - 2.0D, x + currentData[character].width - 8.0D, y + currentData[character].height - 2.0D, 1.0F);
+                    if (strikethrough)
+                        drawLine(x, y + currentData[character].height / 2, x + currentData[character].width - 8.0D, y + currentData[character].height / 2, 1.0F);
+                    if (underline)
+                        drawLine(x, y + currentData[character].height - 2.0D, x + currentData[character].width - 8.0D, y + currentData[character].height - 2.0D, 1.0F);
                     x += currentData[character].width - 8 + this.charOffset;
                 }
             }
@@ -231,10 +238,6 @@ public class CFontRenderer extends CFont {
         super.setFractionalMetrics(fractionalMetrics);
         setupBoldItalicIDs();
     }
-
-    protected DynamicTexture texBold;
-    protected DynamicTexture texItalic;
-    protected DynamicTexture texItalicBold;
 
     private void setupBoldItalicIDs() {
         texBold = setupTexture(this.font.deriveFont(1), this.antiAlias, this.fractionalMetrics, this.boldChars);
@@ -303,7 +306,7 @@ public class CFontRenderer extends CFont {
                 currentWord = currentWord + c;
             } else {
                 finalWords.add(currentWord);
-                currentWord = "\u00A7" + lastColorCode + String.valueOf(c);
+                currentWord = "\u00A7" + lastColorCode + c;
             }
         }
 

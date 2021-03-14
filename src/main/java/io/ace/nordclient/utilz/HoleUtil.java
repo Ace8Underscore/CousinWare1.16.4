@@ -1,23 +1,23 @@
 package io.ace.nordclient.utilz;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
 public class HoleUtil {
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getInstance();
 
     public static boolean isBedrockHole(BlockPos pos) {
         boolean retVal = false;
         if (mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.up().up()).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK))
-        if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK))
-        if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK))
-        if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK))
-        if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK))
-        retVal = true;
+            if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
+                if (mc.world.getBlockState(pos.up().up()).getBlock().equals(Blocks.AIR))
+                    if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK))
+                        if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK))
+                            if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK))
+                                if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK))
+                                    if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK))
+                                        retVal = true;
         return retVal;
 
     }
@@ -28,34 +28,34 @@ public class HoleUtil {
         if (mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
             if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR)) {
                 if (mc.world.getBlockState(pos.up().up()).getBlock().equals(Blocks.AIR)) {
-            if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN)) {
-                if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN)) {
-                    obiCount++;
-                }
-                if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN)) {
-                    if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN)) {
-                        obiCount++;
-                    }
-                    if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN)) {
-                        if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN)) {
+                    if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN)) {
+                        if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN)) {
                             obiCount++;
                         }
-                        if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN)) {
-                            if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN)) {
+                        if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN)) {
+                            if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN)) {
                                 obiCount++;
                             }
-                            if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN)) {
-                                if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN)) {
+                            if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN)) {
+                                if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN)) {
                                     obiCount++;
                                 }
-                                if (obiCount >= 1) {
-                                    retVal = true;
+                                if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN)) {
+                                    if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN)) {
+                                        obiCount++;
+                                    }
+                                    if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN)) {
+                                        if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN)) {
+                                            obiCount++;
+                                        }
+                                        if (obiCount >= 1) {
+                                            retVal = true;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            }
                 }
             }
         }
@@ -66,29 +66,29 @@ public class HoleUtil {
     public static boolean isHole(BlockPos pos) {
         boolean retVal = false;
         if (mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.up().up()).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN))
-        retVal = true;
+            if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
+                if (mc.world.getBlockState(pos.up().up()).getBlock().equals(Blocks.AIR))
+                    if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN))
+                        if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN))
+                            if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN))
+                                if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN))
+                                    if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN))
+                                        retVal = true;
 
         return retVal;
     }
 
     public static boolean isPlayerInHole() {
         boolean retVal = false;
-        BlockPos pos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+        BlockPos pos = new BlockPos(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
         if (mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
-        if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN))
-        if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN))
-        retVal = true;
+            if (mc.world.getBlockState(pos.up()).getBlock().equals(Blocks.AIR))
+                if (mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.down()).getBlock().equals(Blocks.OBSIDIAN))
+                    if (mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.east()).getBlock().equals(Blocks.OBSIDIAN))
+                        if (mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.west()).getBlock().equals(Blocks.OBSIDIAN))
+                            if (mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.south()).getBlock().equals(Blocks.OBSIDIAN))
+                                if (mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.BEDROCK) || mc.world.getBlockState(pos.north()).getBlock().equals(Blocks.OBSIDIAN))
+                                    retVal = true;
 
         return retVal;
     }

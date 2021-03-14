@@ -2,17 +2,21 @@ package io.ace.nordclient.command.commands;
 
 import io.ace.nordclient.command.Command;
 
-public class Ping extends Command{
+public class Ping extends Command {
 
     /**
      * @author Ace________/Ace_#1233
      */
 
     @Override
-    public String[] getClientAlias() { return new String[] {"ping"};}
+    public String[] getClientAlias() {
+        return new String[]{"ping"};
+    }
 
     @Override
-    public String getClientSyntax() { return "ping"; }
+    public String getClientSyntax() {
+        return "ping";
+    }
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
@@ -22,7 +26,6 @@ public class Ping extends Command{
         } else {
             Command.sendClientSideMessage("You're In Singleplayer");
         }
-
 
 
     }

@@ -1,117 +1,100 @@
 package io.ace.nordclient;
 
+import io.ace.nordclient.command.Command;
 import io.ace.nordclient.command.commands.Xray;
 import io.ace.nordclient.command.commands.*;
-import io.ace.nordclient.cousingui.CousinWareGui;
 import io.ace.nordclient.event.EventLaunch;
 import io.ace.nordclient.event.EventProcessor;
-import io.ace.nordclient.gui.ClickGUI2;
-import io.ace.nordclient.hacks.client.ClickGuiHack;
-import io.ace.nordclient.hacks.client.ClickGuiHack2;
-import io.ace.nordclient.hacks.client.ClickGuiHudHack;
-import io.ace.nordclient.hacks.client.Core;
-import io.ace.nordclient.hacks.combat.*;
-import io.ace.nordclient.hacks.exploit.SpeedMine;
-import io.ace.nordclient.hacks.exploit.*;
+import io.ace.nordclient.hacks.Test;
 import io.ace.nordclient.hacks.misc.*;
-import io.ace.nordclient.hacks.movement.*;
-import io.ace.nordclient.hacks.player.*;
-import io.ace.nordclient.hacks.render.Crystal;
-import io.ace.nordclient.hacks.render.*;
-import io.ace.nordclient.hud.ClickGuiHUD;
-import io.ace.nordclient.hud.hudcomponets.*;
 import io.ace.nordclient.hwid.HWID;
 import io.ace.nordclient.managers.*;
 import io.ace.nordclient.utilz.TpsUtils;
 import io.ace.nordclient.utilz.configz.ConfigUtils;
 import io.ace.nordclient.utilz.configz.ShutDown;
 import io.ace.nordclient.utilz.font.CFontRenderer;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import me.zero.alpine.EventBus;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.opengl.Display;
-import team.stiff.pomelo.EventManager;
-import team.stiff.pomelo.impl.annotated.AnnotatedEventManager;
 
 import java.awt.Font;
 import java.lang.management.ManagementFactory;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-@Mod(modid = CousinWare.MODID, name = CousinWare.NAME, version = CousinWare.VERSION)
-public class CousinWare
-{
+@Mod(CousinWare.MODID)
+public class CousinWare {
     public static final String MODID = "cousinware";
     public static final String NAME = "CousinWare";
-    public static final String VERSION = "v1.6.4";
+    public static final String VERSION = "v1.6.5";
 
     public static final Logger log = LogManager.getLogger(NAME);
-    private EventManager eventManager;
-    EventProcessor eventProcessor;
+    public static CousinWare INSTANCE;
     public HackManager hackManager;
-    public HudManager hudManager;
+    //public HudManager hudManager;
     public ConfigUtils configUtils;
     public FriendManager friends;
     public SettingsManager settingsManager;
-    public CousinWareGui cousinWareGui;
-    public ClickGUI2 clickGui2;
-    public ClickGuiHUD clickGuiHUD;
+    //public CousinWareGui cousinWareGui;
+    //public ClickGUI2 clickGui2;
+    //public ClickGuiHUD clickGuiHUD;
     public CFontRenderer fontRenderer;
     public HWID hwid;
+    EventProcessor eventProcessor;
 
-    @Mod.Instance
-    public static CousinWare INSTANCE;
+    public static final EventBus EVENT_BUS = new me.zero.alpine.EventManager();
 
+    public CousinWare() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::postInit);
+        MinecraftForge.EVENT_BUS.register(this);
+    }
 
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event) throws MalformedURLException {
-        Display.setTitle("CousinWare " + VERSION);
-        hwid = new HWID();
-
+    public void setup(FMLCommonSetupEvent event){
+        //Display.setTitle("CousinWare " + VERSION);
+        //hwid = new HWID();
+        settingsManager = new SettingsManager();
 //
     }
 
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLClientSetupEvent event) {
         eventProcessor = new EventProcessor();
         eventProcessor.init();
         loadClientCommands();
 
         TpsUtils tpsUtils = new TpsUtils();
-        settingsManager = new SettingsManager();
+        //settingsManager = new SettingsManager();
         friends = new FriendManager();
         loadHuds();
         loadHacks();
         fontRenderer = new CFontRenderer(new Font("Verdana", Font.PLAIN, 17), true, false);
-        cousinWareGui = new CousinWareGui();
-        clickGui2 = new ClickGUI2();
-        clickGuiHUD = new ClickGuiHUD();
-        configUtils = new ConfigUtils();
-        Runtime.getRuntime().addShutdownHook(new ShutDown());
+        //cousinWareGui = new CousinWareGui();
+        //clickGui2 = new ClickGUI2();
+        //clickGuiHUD = new ClickGuiHUD();
+
+
+        try {
+            utils();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
     }
-    @Mod.EventHandler
-    public void inits(FMLInitializationEvent event) throws URISyntaxException {
+
+
+    public void utils() throws URISyntaxException {
         EventLaunch.init();
     }
     //
 
-    public EventManager getEventManager() {
-        if (this.eventManager == null) {
-            this.eventManager = new AnnotatedEventManager();
-        }
-
-        return this.eventManager;
-    }
-
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLLoadCompleteEvent event) {
         String currentHWID = String.valueOf(Runtime.getRuntime().availableProcessors() +
                 //System.getenv("PROCESSOR_IDENTIFIER") +
                 //System.getenv("PROCESSOR_ARCHITECTURE") +
@@ -119,9 +102,12 @@ public class CousinWare
                 ////System.getenv("NUMBER_OF_PROCESSORS") +
                 ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize());
         if (!HWID.isGoodHWID(currentHWID)) {
-            FMLCommonHandler.instance().exitJava(0, true);
+            //FMLCommonHandler.instance().exitJava(0, true);
+            //System.exit(0);
         }
-        //
+        loadHacks();
+        //configUtils = new ConfigUtils();
+        //Runtime.getRuntime().addShutdownHook(new ShutDown());
 
     }
 
@@ -142,34 +128,35 @@ public class CousinWare
         CommandManager.addCommand(new Summon());
         CommandManager.addCommand(new Pyro());
         CommandManager.addCommand(new Set());
-        CommandManager.addCommand(new SetHud());
+       // CommandManager.addCommand(new SetHud());
         CommandManager.addCommand(new Setting());
         CommandManager.addCommand(new ReloadSound());
         CommandManager.addCommand(new Spotify());
         CommandManager.addCommand(new RideEntity());
         CommandManager.addCommand(new io.ace.nordclient.command.commands.Font());
         CommandManager.addCommand(new Xray());
+        CommandManager.addCommand(new Crash());
 
     }
 
     public void loadHuds() {
-        HudManager.hudElement = new ArrayList<>();
+        //HudManager.hudElement = new ArrayList<>();
 
-        HudManager.addHud(new ArmorHud());
-        HudManager.addHud(new io.ace.nordclient.hud.hudcomponets.Crystal());
-        HudManager.addHud(new Exp());
-        HudManager.addHud(new Gapple());
-        HudManager.addHud(new GoonSquad());
-        HudManager.addHud(new InventoryPreview());
-        HudManager.addHud(new Obsidian());
-        HudManager.addHud(new Totem());
+       // HudManager.addHud(new ArmorHud());
+       // HudManager.addHud(new io.ace.nordclient.hud.hudcomponets.Crystal());
+       // HudManager.addHud(new Exp());
+       // HudManager.addHud(new Gapple());
+       // HudManager.addHud(new GoonSquad());
+       // HudManager.addHud(new InventoryPreview());
+       // HudManager.addHud(new Obsidian());
+       // HudManager.addHud(new Totem());
 
     }
 
     public void loadHacks() {
         HackManager.hacks = new ArrayList<>();
         //client
-        HackManager.addHack(new ClickGuiHack());
+       /* HackManager.addHack(new ClickGuiHack());
         HackManager.addHack(new ClickGuiHack2());
         HackManager.addHack(new ClickGuiHudHack());
         HackManager.addHack(new Core());
@@ -208,8 +195,9 @@ public class CousinWare
         HackManager.addHack(new AntiRegear());
         HackManager.addHack(new AutoWither());
         //HackManager.addHack(new BedrockFinder());
-        //HackManager.addHack(new BoatBypass());
-        HackManager.addHack(new ChatSuffix());
+        //HackManager.addHack(new BoatBypass()); */
+        HackManager.addHack(new Test());
+        HackManager.addHack(new ChatSuffix()); /*
         HackManager.addHack(new DonkeyAlert());
         HackManager.addHack(new DungannonSpammer());
         HackManager.addHack(new EnchantColor());
@@ -221,7 +209,7 @@ public class CousinWare
         HackManager.addHack(new MCF());
         HackManager.addHack(new NoEntityTrace());
         HackManager.addHack(new NotResponding());
-       // HackManager.addHack(new PlayerEffects());
+        // HackManager.addHack(new PlayerEffects());
         HackManager.addHack(new NoInteract());
         HackManager.addHack(new QuickDrop());
         HackManager.addHack(new ShulkerMod());
@@ -273,7 +261,7 @@ public class CousinWare
         HackManager.addHack(new Swing());
         HackManager.addHack(new ViewModelChanger());
         HackManager.addHack(new Welcomer());
-        HackManager.addHack(new io.ace.nordclient.hacks.render.Xray());
+        HackManager.addHack(new io.ace.nordclient.hacks.render.Xray()); */
     }
 
 }

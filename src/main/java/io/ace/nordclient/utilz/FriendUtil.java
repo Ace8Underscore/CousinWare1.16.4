@@ -7,11 +7,12 @@ public class FriendUtil {
      */
 
     String name;
-    public FriendUtil(String n){
+
+    public FriendUtil(String n) {
         name = n;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 }

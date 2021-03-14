@@ -2,9 +2,9 @@ package io.ace.nordclient.command.commands;
 
 import io.ace.nordclient.command.Command;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.entity.item.EnderCrystalEntity;
 
-public class Pyro extends Command{
+public class Pyro extends Command {
 
 
     /**
@@ -12,24 +12,27 @@ public class Pyro extends Command{
      */
 
     @Override
-    public String[] getClientAlias() { return new String[] {"Pyro"};}
+    public String[] getClientAlias() {
+        return new String[]{"Pyro"};
+    }
 
     @Override
-    public String getClientSyntax() { return "Pyro"; }
+    public String getClientSyntax() {
+        return "Pyro";
+    }
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
-            mc.world.removeAllEntities();
-            mc.world.removeEntityFromWorld(200);
-            mc.world.loadedEntityList.remove(true);
-            for (Entity e : mc.world.loadedEntityList) {
-                if (e instanceof EntityEnderCrystal) {
-                    mc.player.world.removeEntity(e);
-                }
-
-                }
+        mc.world.removeAllEntities();
+        mc.world.removeEntityFromWorld(200);
+        for (Entity e : mc.world.getAllEntities()) {
+            if (e instanceof EnderCrystalEntity) {
+                mc.world.removeEntityFromWorld(e.getEntityId());
             }
+
         }
+    }
+}
 
 
 

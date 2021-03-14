@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "io.ace.nordclient.mixin.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "cousinware.refmap.json",
+  "mixins": [
+    "MixinEntityPlayerSP",
+    "MixinNetworkManager"
+  ],
+  "minVersion": "0.8"
+}

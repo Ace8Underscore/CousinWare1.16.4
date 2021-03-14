@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin;
+/*package io.ace.nordclient.mixin;
 
 import io.ace.nordclient.CousinWare;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixins;
 
 import java.util.Map;
 
-public class NordMixinLoader implements IFMLLoadingPlugin {
+public class NordMixinLoader implements I {
 
     private static boolean isObfuscatedEnvironment = false;
 
@@ -44,4 +44,4 @@ public class NordMixinLoader implements IFMLLoadingPlugin {
     public String getAccessTransformerClass() {
         return null;
     }
-}
+} */

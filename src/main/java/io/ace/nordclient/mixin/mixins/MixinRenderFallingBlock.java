@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.managers.HackManager;
 import net.minecraft.client.renderer.entity.RenderFallingBlock;
@@ -17,4 +17,4 @@ public abstract class MixinRenderFallingBlock {
         }
     }
 
-}
+} */

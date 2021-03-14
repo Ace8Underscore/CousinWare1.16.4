@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.mixin.accessor.ISPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
@@ -20,9 +20,17 @@ public abstract class MixinSPacketEntityVelocity implements ISPacketEntityVeloci
     @Shadow
     protected int motionZ;
 
+    public int getMotionX() {
+        return this.motionX;
+    }
+
     @Override
     public void setMotionX(int x) {
         this.motionX = x;
+    }
+
+    public int getMotionY() {
+        return this.motionY;
     }
 
     @Override
@@ -30,24 +38,16 @@ public abstract class MixinSPacketEntityVelocity implements ISPacketEntityVeloci
         this.motionY = y;
     }
 
+    public int getMotionZ() {
+        return this.motionZ;
+    }
+
     @Override
     public void setMotionZ(int z) {
         this.motionZ = z;
     }
 
-    public int getMotionX() {
-        return this.motionX;
-    }
-
-    public int getMotionY() {
-        return this.motionY;
-    }
-
-    public int getMotionZ() {
-        return this.motionZ;
-    }
-
     public int getEntityID() {
         return this.entityID;
     }
-}
+} */

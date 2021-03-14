@@ -3,28 +3,27 @@ package io.ace.nordclient.utilz.configz;
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.hacks.Hack;
-import io.ace.nordclient.hacks.render.Xray;
-import io.ace.nordclient.hud.Hud;
 import io.ace.nordclient.managers.FriendManager;
+import io.ace.nordclient.managers.HackManager;
 import io.ace.nordclient.utilz.FriendUtil;
 import io.ace.nordclient.utilz.Setting;
 import io.ace.nordclient.utilz.font.CFontRenderer;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
+//import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 import java.io.*;
 import java.util.Iterator;
 
 public class ConfigUtils {
-    Minecraft mc = Minecraft.getMinecraft();
     public File Nord;
     public File Settings;
     public String publicname;
+    Minecraft mc = Minecraft.getInstance();
 
     /**
      * @author Finz0
-     *
      **/
 
     public ConfigUtils() {
@@ -33,7 +32,7 @@ public class ConfigUtils {
             this.Nord.mkdirs();
         }
 
-       this.Settings = new File(mc.gameDir + File.separator + "CousinWare" + File.separator + "Settings");
+        this.Settings = new File(mc.gameDir + File.separator + "CousinWare" + File.separator + "Settings");
         if (!this.Settings.exists()) {
             this.Settings.mkdirs();
         }
@@ -44,30 +43,24 @@ public class ConfigUtils {
         loadPrefix();
         loadFriends();
         loadSettingsList();
-        loadFont();
-        loadHuds();
-        loadHudPos();
+        //loadFont();
+        //loadHuds();
+       // loadHudPos();
         //loadXray();
 
 
-
-
-
     }
-
-
-
 
 
     public void saveBinds() {
         try {
             File file = new File(this.Nord.getAbsolutePath(), "Binds.txt");
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            Iterator var3 = CousinWare.INSTANCE.hackManager.getHacks().iterator();
+            Iterator var3 = HackManager.getHacks().iterator();
 
             while (var3.hasNext()) {
                 Hack hack = (Hack) var3.next();
-                out.write(hack.getName() + ":" + Keyboard.getKeyName(hack.getBind()));
+                out.write(hack.getName() + ":" + GLFW.glfwGetKeyName(hack.getBind(), -1));
                 out.write("\r\n");
             }
 
@@ -89,9 +82,10 @@ public class ConfigUtils {
                 String curLine = line.trim();
                 String name = curLine.split(":")[0];
                 String bind = curLine.split(":")[1];
-                for (Hack h : CousinWare.INSTANCE.hackManager.getHacks()) {
+                for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(name)) {
-                        h.setBind(Keyboard.getKeyIndex(bind));
+                       // h.setBind(Keyboard.getKeyIndex(bind));
+
                     }
                 }
             }
@@ -109,7 +103,7 @@ public class ConfigUtils {
         try {
             File file = new File(this.Nord.getAbsolutePath(), "EnabledHacks.txt");
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            Iterator var3 = CousinWare.INSTANCE.hackManager.getHacks().iterator();
+            Iterator var3 = HackManager.getHacks().iterator();
 
             while (var3.hasNext()) {
                 Hack hack = (Hack) var3.next();
@@ -131,8 +125,8 @@ public class ConfigUtils {
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             Iterator var3 = FriendManager.getFriends().iterator();
 
-            while(var3.hasNext()) {
-                FriendUtil f = (FriendUtil)var3.next();
+            while (var3.hasNext()) {
+                FriendUtil f = (FriendUtil) var3.next();
                 out.write(f.getName());
                 out.write("\r\n");
             }
@@ -152,8 +146,8 @@ public class ConfigUtils {
 
             FriendManager.friends.clear();
             String line;
-            while((line = br.readLine()) != null) {
-                CousinWare.INSTANCE.friends.addFriend(line);
+            while ((line = br.readLine()) != null) {
+                FriendManager.addFriend(line);
             }
 
             br.close();
@@ -165,83 +159,6 @@ public class ConfigUtils {
 
     }
 
-    public void saveXray() {
-        try {
-            File file = new File(this.Nord.getAbsolutePath(), "Xray.txt");
-            BufferedWriter out = new BufferedWriter(new FileWriter(file));
-
-
-            while (Xray.xrayBlocks.iterator().hasNext()) {
-                for (int i = 0; i < Xray.xrayBlocks.size(); i++) {
-                    Xray x = new Xray();
-                    out.write(Xray.xrayBlocks.get(i));
-                    out.write("\r\n");
-                }
-            }
-
-            out.close();
-        } catch (Exception var5) {
-        }
-
-    }
-
-    public void loadXray() {
-        try {
-            File file = new File(this.Nord.getAbsolutePath(), "Xray.txt");
-            FileInputStream fstream = new FileInputStream(file.getAbsolutePath());
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
-            FriendManager.friends.clear();
-            String line;
-            while((line = br.readLine()) != null) {
-                Xray.xrayBlocks.add(line);
-            }
-
-            br.close();
-        } catch (Exception var6) {
-            var6.printStackTrace();
-
-        }
-
-    }
-
-  /*  public void saveEnemies() {
-        try {
-            File file = new File(this.Nord.getAbsolutePath(), "Enemies.txt");
-            BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            Iterator var3 = Enemies.getEnemies().iterator();
-
-            while (var3.hasNext()) {
-                Enemy e = (Enemy) var3.next();
-                out.write(e.getName());
-                out.write("\r\n");
-            }
-
-            out.close();
-        } catch (Exception var5) {
-        }
-    }
-
-   public void loadEnemies() {
-        try {
-            File file = new File(this.Nord.getAbsolutePath(), "Enemies.txt");
-            FileInputStream fstream = new FileInputStream(file.getAbsolutePath());
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
-            Enemies.enemies.clear();
-            String line;
-            while((line = br.readLine()) != null) {
-                Enemies.addEnemy(line);
-            }
-
-            br.close();
-        } catch (Exception var6) {
-            var6.printStackTrace();
-            //saveEnemies();
-        }
-    } */
 
  /*   public void saveGui() {
         try {
@@ -400,7 +317,7 @@ public class ConfigUtils {
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 publicname = line.split(":")[0];
                 String size = line.split(":")[1];
                 int sizeInt = Integer.parseInt(size);
@@ -431,7 +348,7 @@ public class ConfigUtils {
         try {
             File file = new File(this.Nord.getAbsolutePath(), "Drawn.txt");
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            Iterator var3 = CousinWare.INSTANCE.hackManager.getHacks().iterator();
+            Iterator var3 = HackManager.getHacks().iterator();
 
             while (var3.hasNext()) {
                 Hack hack = (Hack) var3.next();
@@ -458,7 +375,7 @@ public class ConfigUtils {
                 String name = curLine.split(":")[0];
                 String isOn = curLine.split(":")[1];
                 boolean drawn = Boolean.parseBoolean(isOn);
-                for (Hack h : CousinWare.INSTANCE.hackManager.getHacks()) {
+                for (Hack h : HackManager.getHacks()) {
                     if (h.getName().equalsIgnoreCase(name)) {
                         h.drawn = drawn;
                     }
@@ -483,7 +400,7 @@ public class ConfigUtils {
 
             String line;
             while ((line = br.readLine()) != null) {
-                Iterator var6 = CousinWare.INSTANCE.hackManager.getHacks().iterator();
+                Iterator var6 = HackManager.getHacks().iterator();
 
                 while (var6.hasNext()) {
                     Hack h = (Hack) var6.next();
@@ -505,15 +422,15 @@ public class ConfigUtils {
         try {
             File file = new File(this.Nord.getAbsolutePath(), "EnabledHuds.txt");
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            Iterator var3 = CousinWare.INSTANCE.hudManager.getHuds().iterator();
+            //Iterator var3 = HudManager.getHuds().iterator();
 
-            while (var3.hasNext()) {
-                Hud hud = (Hud) var3.next();
-                if (hud.isEnabled()) {
-                    out.write(hud.getName());
+            //while (var3.hasNext()) {
+             //   Hud hud = (Hud) var3.next();
+                //if (hud.isEnabled()) {
+               //     out.write(hud.getName());
                     out.write("\r\n");
-                }
-            }
+               // }
+            //}
 
             out.close();
         } catch (Exception var5) {
@@ -530,14 +447,14 @@ public class ConfigUtils {
 
             String line;
             while ((line = br.readLine()) != null) {
-                Iterator var6 = CousinWare.INSTANCE.hudManager.getHuds().iterator();
+                //Iterator var6 = HudManager.getHuds().iterator();
 
-                while (var6.hasNext()) {
-                    Hud h = (Hud) var6.next();
-                    if (h.getName().equals(line)) {
-                        h.enable();
-                    }
-                }
+               // while (var6.hasNext()) {
+                //    Hud h = (Hud) var6.next();
+                //    if (h.getName().equals(line)) {
+                     //   h.enable();
+                 //   }
+               // }
             }
 
             br.close();
@@ -559,8 +476,8 @@ public class ConfigUtils {
             out = new BufferedWriter(new FileWriter(file));
             var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
 
-            while(var3.hasNext()) {
-                i = (Setting)var3.next();
+            while (var3.hasNext()) {
+                i = (Setting) var3.next();
                 if (i.isSlider()) {
                     out.write(i.getId() + ":" + i.getValDouble() + ":" + i.getParentMod().getName() + "\r\n");
                 }
@@ -575,8 +492,8 @@ public class ConfigUtils {
             out = new BufferedWriter(new FileWriter(file));
             var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
 
-            while(var3.hasNext()) {
-                i = (Setting)var3.next();
+            while (var3.hasNext()) {
+                i = (Setting) var3.next();
                 if (i.isCheck()) {
                     out.write(i.getId() + ":" + i.getValBoolean() + ":" + i.getParentMod().getName() + "\r\n");
                 }
@@ -591,8 +508,8 @@ public class ConfigUtils {
             out = new BufferedWriter(new FileWriter(file));
             var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
 
-            while(var3.hasNext()) {
-                i = (Setting)var3.next();
+            while (var3.hasNext()) {
+                i = (Setting) var3.next();
                 if (i.isCombo()) {
                     out.write(i.getId() + ":" + i.getValString() + ":" + i.getParentMod().getName() + "\r\n");
                 }
@@ -607,8 +524,8 @@ public class ConfigUtils {
             out = new BufferedWriter(new FileWriter(file));
             var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
 
-            while(var3.hasNext()) {
-                i = (Setting)var3.next();
+            while (var3.hasNext()) {
+                i = (Setting) var3.next();
                 if (i.isColorPicker()) {
                     out.write(i.getId() + ":" + i.getValColor().getRGB() + ":" + i.getParentMod().getName() + "\r\n");
                 }
@@ -638,12 +555,12 @@ public class ConfigUtils {
             in = new DataInputStream(fstream);
             br = new BufferedReader(new InputStreamReader(in));
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 curLine = line.trim();
                 name = curLine.split(":")[0];
                 isOn = curLine.split(":")[1];
                 m = curLine.split(":")[2];
-                for(Hack h : CousinWare.INSTANCE.hackManager.getHacks()) {
+                for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
                         mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
                         mod.setValDouble(Double.parseDouble(isOn));
@@ -663,12 +580,12 @@ public class ConfigUtils {
             in = new DataInputStream(fstream);
             br = new BufferedReader(new InputStreamReader(in));
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 curLine = line.trim();
                 name = curLine.split(":")[0];
                 color = Integer.parseInt(curLine.split(":")[1]);
                 m = curLine.split(":")[2];
-                for(Hack h : CousinWare.INSTANCE.hackManager.getHacks()) {
+                for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
                         mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
                         mod.setValColor(new Color(color));
@@ -688,12 +605,12 @@ public class ConfigUtils {
             in = new DataInputStream(fstream);
             br = new BufferedReader(new InputStreamReader(in));
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 curLine = line.trim();
                 name = curLine.split(":")[0];
                 isOn = curLine.split(":")[1];
                 m = curLine.split(":")[2];
-                for(Hack h : CousinWare.INSTANCE.hackManager.getHacks()) {
+                for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
                         mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
                         mod.setValBoolean(Boolean.parseBoolean(isOn));
@@ -713,12 +630,12 @@ public class ConfigUtils {
             in = new DataInputStream(fstream);
             br = new BufferedReader(new InputStreamReader(in));
 
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 curLine = line.trim();
                 name = curLine.split(":")[0];
                 isOn = curLine.split(":")[1];
                 m = curLine.split(":")[2];
-                for(Hack h : CousinWare.INSTANCE.hackManager.getHacks()) {
+                for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
                         mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
                         mod.setValString(isOn);
@@ -733,11 +650,12 @@ public class ConfigUtils {
         }
 
     }
-    public void saveHudPos() {
+
+  /*  public void saveHudPos() {
         try {
             File file = new File(this.Nord.getAbsolutePath(), "HudPos.txt");
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            Iterator var3 = CousinWare.INSTANCE.hudManager.getHuds().iterator();
+            Iterator var3 = HudManager.getHuds().iterator();
 
             while (var3.hasNext()) {
                 Hud hud = (Hud) var3.next();
@@ -764,7 +682,7 @@ public class ConfigUtils {
                 String name = curLine.split(":")[0];
                 String x = curLine.split(":")[1];
                 String y = curLine.split(":")[2];
-                for (Hud h : CousinWare.INSTANCE.hudManager.getHuds()) {
+                for (Hud h : HudManager.getHuds()) {
                     if (h.getName().equalsIgnoreCase(name)) {
                         h.x = Integer.parseInt(x);
                         h.y = Integer.parseInt(y);
@@ -778,5 +696,5 @@ public class ConfigUtils {
             //saveDrawn();
         }
 
-    }
+    } */
 }

@@ -10,10 +10,14 @@ public class AllCommands extends Command {
      */
 
     @Override
-    public String[] getClientAlias() {return new String[] {"allcommand", "allcommands", "commands", "command"};}
+    public String[] getClientAlias() {
+        return new String[]{"allcommand", "allcommands", "commands", "command"};
+    }
 
     @Override
-    public String getClientSyntax() {return "Commands";}
+    public String getClientSyntax() {
+        return "Commands";
+    }
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {

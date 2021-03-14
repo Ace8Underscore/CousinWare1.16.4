@@ -7,18 +7,18 @@ import java.util.ArrayList;
 
 
 /**
- *  Made by HeroCode
- *  it's free to use
- *  but you have to credit me
+ * Made by HeroCode
+ * it's free to use
+ * but you have to credit me
  *
- *  @author HeroCode
+ * @author HeroCode
  */
 public class Setting {
 
-    private String displayName;
-    private String id;
-    private Hack parent;
-    private String mode;
+    private final String displayName;
+    private final String id;
+    private final Hack parent;
+    private final String mode;
 
     private String sval;
     private ArrayList<String> options;
@@ -34,7 +34,7 @@ public class Setting {
 
     private String customVal;
 
-    public Setting(String displayName, Hack parent, String sval, ArrayList<String> options, String id){
+    public Setting(String displayName, Hack parent, String sval, ArrayList<String> options, String id) {
         this.displayName = displayName;
         this.parent = parent;
         this.sval = sval;
@@ -43,7 +43,7 @@ public class Setting {
         this.id = id;
     }
 
-    public Setting(String displayName, Hack parent, boolean bval, String id){
+    public Setting(String displayName, Hack parent, boolean bval, String id) {
         this.displayName = displayName;
         this.parent = parent;
         this.bval = bval;
@@ -51,7 +51,7 @@ public class Setting {
         this.id = id;
     }
 
-    public Setting(String displayName, Hack parent, final double dval, final double min, final double max, final boolean onlyint, String id){
+    public Setting(String displayName, Hack parent, final double dval, final double min, final double max, final boolean onlyint, String id) {
         this.displayName = displayName;
         this.parent = parent;
         this.dval = dval;
@@ -62,7 +62,7 @@ public class Setting {
         this.id = id;
     }
 
-    public Setting(String displayName, Hack parent, Color color, String id){
+    public Setting(String displayName, Hack parent, Color color, String id) {
         this.displayName = displayName;
         this.parent = parent;
         this.color = color;
@@ -70,7 +70,7 @@ public class Setting {
         this.id = id;
     }
 
-    public Setting(String displayName, Hack parent, String customVal, String id){
+    public Setting(String displayName, Hack parent, String customVal, String id) {
         this.displayName = displayName;
         this.parent = parent;
         this.customVal = customVal;
@@ -78,112 +78,114 @@ public class Setting {
         this.id = id;
     }
 
-    public String getDisplayName(){
+    public String getDisplayName() {
         return displayName;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public Hack getParentMod(){
+    public Hack getParentMod() {
         return parent;
     }
 
-    public String getValString(){
+    public String getValString() {
         return this.sval;
     }
 
-    public void setValString(String in){
+    public void setValString(String in) {
         this.sval = in;
     }
 
-    public ArrayList<String> getOptions(){
+    public ArrayList<String> getOptions() {
         return this.options;
     }
 
-    public boolean getValBoolean(){
+    public boolean getValBoolean() {
         return this.bval;
     }
 
-    public void setValBoolean(boolean in){
+    public void setValBoolean(boolean in) {
         this.bval = in;
     }
 
-    public double getValDouble(){
-        if(this.onlyint){
-            this.dval = (int)dval;
+    public double getValDouble() {
+        if (this.onlyint) {
+            this.dval = (int) dval;
         }
         return this.dval;
     }
 
-    public int getValInt(){
-        return (int)getValDouble();
-    }
-
-    public void setValDouble(double in){
+    public void setValDouble(double in) {
         this.dval = in;
     }
 
-    public double getMin(){
+    public int getValInt() {
+        return (int) getValDouble();
+    }
+
+    public double getMin() {
         return this.min;
     }
 
-    public double getMax(){
+    public double getMax() {
         return this.max;
     }
 
-    public boolean isCombo(){
+    public boolean isCombo() {
         return this.mode.equalsIgnoreCase("Combo");
     }
 
-    public boolean isCheck(){
+    public boolean isCheck() {
         return this.mode.equalsIgnoreCase("Check");
     }
 
-    public boolean isSlider(){
+    public boolean isSlider() {
         return this.mode.equalsIgnoreCase("Slider");
     }
 
-    public boolean isColorPicker(){
+    public boolean isColorPicker() {
         return mode.equalsIgnoreCase("ColorPicker");
     }
 
-    public boolean isCustomString(){
+    public boolean isCustomString() {
         return mode.equalsIgnoreCase("CustomString");
     }
 
-    public boolean onlyInt(){
+    public boolean onlyInt() {
         return this.onlyint;
     }
 
-    public Color getValColor(){
+    public Color getValColor() {
         return color;
     }
 
-    public void setValColor(Color newColor){
+    public void setValColor(Color newColor) {
         color = newColor;
     }
 
-    public int getColorRed(){
+    public int getColorRed() {
         return color.getRed();
     }
-    public int getColorGreen(){
+
+    public int getColorGreen() {
         return color.getGreen();
     }
-    public int getColorBlue(){
+
+    public int getColorBlue() {
         return color.getBlue();
     }
 
-    public int getColorRgb(){
+    public int getColorRgb() {
         return color.getRGB();
     }
 
-    public String getCustomVal(){
+    public String getCustomVal() {
         return customVal;
     }
 
-    public void setCustomVal(String newString){
+    public void setCustomVal(String newString) {
         customVal = newString;
     }
 }

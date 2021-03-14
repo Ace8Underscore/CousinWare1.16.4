@@ -1,6 +1,9 @@
 package io.ace.nordclient.event;
 
-import net.minecraft.network.Packet;
+
+import net.minecraft.network.IPacket;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.PacketDispatcher;
 
 public class PacketEvent extends EventCancellable {
 
@@ -8,24 +11,24 @@ public class PacketEvent extends EventCancellable {
      * @author zeroeightsix/kami
      */
 
-    private final Packet packet;
+    private final IPacket packet;
 
-    public PacketEvent(Packet packet) {
+    public PacketEvent(IPacket packet) {
         this.packet = packet;
     }
 
-    public Packet getPacket() {
+    public IPacket getPacket() {
         return packet;
     }
 
     public static class Receive extends PacketEvent {
-        public Receive(Packet packet) {
+        public Receive(IPacket packet) {
             super(packet);
         }
     }
 
     public static class Send extends PacketEvent {
-        public Send(Packet packet) {
+        public Send(IPacket packet) {
             super(packet);
         }
     }

@@ -7,59 +7,59 @@ import java.util.ArrayList;
 
 
 /**
- *  Made by HeroCode
- *  it's free to use
- *  but you have to credit me
+ * Made by HeroCode
+ * it's free to use
+ * but you have to credit me
  *
- *  @author HeroCode
+ * @author HeroCode
  */
 public class SettingsManager {
 
-    private ArrayList<Setting> settings;
+    private final ArrayList<Setting> settings;
 
-    public SettingsManager(){
+    public SettingsManager() {
         this.settings = new ArrayList<>();
 
     }
 
-    public void rSetting(Setting in){
+    public void rSetting(Setting in) {
         this.settings.add(in);
     }
 
-    public ArrayList<Setting> getSettings(){
+    public ArrayList<Setting> getSettings() {
         return this.settings;
     }
 
-    public ArrayList<Setting> getSettingsByMod(Hack hack){
+    public ArrayList<Setting> getSettingsByMod(Hack hack) {
         ArrayList<Setting> out = new ArrayList<>();
-        for(Setting s : getSettings()){
-            if(s.getParentMod().equals(hack)){
+        for (Setting s : getSettings()) {
+            if (s.getParentMod().equals(hack)) {
                 out.add(s);
             }
         }
-        if(out.isEmpty()){
+        if (out.isEmpty()) {
             return null;
         }
         return out;
     }
 
-    public Setting getSettingByDisplayName(String name){
-        for(Setting set : getSettings()){
-            if(set.getDisplayName().equalsIgnoreCase(name)){
+    public Setting getSettingByDisplayName(String name) {
+        for (Setting set : getSettings()) {
+            if (set.getDisplayName().equalsIgnoreCase(name)) {
                 return set;
             }
         }
-        System.err.println("[Nord] Error Setting NOT found: '" + name +"'!");
+        System.err.println("[Nord] Error Setting NOT found: '" + name + "'!");
         return null;
     }
 
-    public Setting getSettingByID(String id){
-        for(Setting s : getSettings()){
-            if(s.getId().equalsIgnoreCase(id)){
+    public Setting getSettingByID(String id) {
+        for (Setting s : getSettings()) {
+            if (s.getId().equalsIgnoreCase(id)) {
                 return s;
             }
         }
-        System.err.println("[Nord] Error Setting NOT found: '" + id +"'!");
+        System.err.println("[Nord] Error Setting NOT found: '" + id + "'!");
         return null;
     }
 

@@ -1,8 +1,8 @@
 package io.ace.nordclient.command.commands;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.managers.FriendManager;
+import net.minecraft.util.text.TextFormatting;
 
 public class Friend extends Command {
 
@@ -24,7 +24,7 @@ public class Friend extends Command {
     public void onClientCommand(String command, String[] args) throws Exception {
         if (args[0].equals("add") && !FriendManager.isFriend(args[1])) {
             FriendManager.addFriend(args[1]);
-            Command.sendClientSideMessage(ChatFormatting.GREEN + args[1] + ChatFormatting.WHITE + " Has Been Added To The Friends List ");
+            Command.sendClientSideMessage(TextFormatting.GREEN + args[1] + TextFormatting.WHITE + " Has Been Added To The Friends List ");
         }
 
 
@@ -34,7 +34,7 @@ public class Friend extends Command {
                     .forEach(friend -> {
                         if (friend.getName().contains(args[1])) {
                             FriendManager.removeFriend(args[1]);
-                            Command.sendClientSideMessage(ChatFormatting.DARK_RED + args[1] + " Has Been UnFriended");
+                            Command.sendClientSideMessage(TextFormatting.DARK_RED + args[1] + " Has Been UnFriended");
 
                         }
                     });
@@ -43,7 +43,7 @@ public class Friend extends Command {
         if (!args[0].equals("add") && !args[0].equals("del")) {
             if (!FriendManager.isFriend(args[0])) {
                 FriendManager.addFriend(args[0]);
-                Command.sendClientSideMessage(ChatFormatting.GREEN + args[0] + ChatFormatting.WHITE + " Has Been Added To The Friends List ");
+                Command.sendClientSideMessage(TextFormatting.GREEN + args[0] + TextFormatting.WHITE + " Has Been Added To The Friends List ");
 
             } else {
                 FriendManager.getFriends()
@@ -51,7 +51,7 @@ public class Friend extends Command {
                         .forEach(friend -> {
                             if (friend.getName().contains(args[0])) {
                                 FriendManager.removeFriend(args[0]);
-                                Command.sendClientSideMessage(ChatFormatting.DARK_RED + args[0] + " Has Been UnFriended");
+                                Command.sendClientSideMessage(TextFormatting.DARK_RED + args[0] + " Has Been UnFriended");
 
                             }
                         });

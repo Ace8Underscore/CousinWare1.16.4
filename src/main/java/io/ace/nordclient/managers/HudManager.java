@@ -1,13 +1,6 @@
 package io.ace.nordclient.managers;
 
-import io.ace.nordclient.event.RenderEvent;
-import io.ace.nordclient.hud.Hud;
-import io.ace.nordclient.utilz.NordTessellator;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import org.lwjgl.opengl.GL11;
+//import io.ace.nordclient.hud.Hud;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -15,32 +8,32 @@ import java.util.stream.Collectors;
 /**
  * @author Ace________/Ace_#1233
  */
-
+/*
 public class HudManager {
-    public static ArrayList<Hud> hudElement;
+    //public static ArrayList<Hud> hudElement;
 
-    public static void addHud(Hud h){
+    //public static void addHud(Hud h) {
         hudElement.add(h);
     }
 
-    public static ArrayList<Hud> getHuds() {
+   // public static ArrayList<Hud> getHuds() {
         return hudElement;
     }
 
-    public static Hud getHudByName(String name){
-        return getHuds().stream().filter(hm->hm.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    public static Hud getHudByName(String name) {
+        return getHuds().stream().filter(hm -> hm.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public static void onUpdate() {
         hudElement.stream().filter(Hud::isEnabled).forEach(Hud::onUpdate);
     }
 
-    public static ArrayList<Hud> getHudsInCategory(Hud.Category c){
+    public static ArrayList<Hud> getHudsInCategory(Hud.Category c) {
         return (ArrayList<Hud>) getHuds().stream().filter(h -> h.getCategory().equals(c)).collect(Collectors.toList());
     }
 
 
-    public static void onWorldRender(RenderWorldLastEvent event) {
+    /*public static void onWorldRender(RenderWorldLastEvent event) {
         Minecraft.getMinecraft().profiler.startSection("nordClient");
 
         Minecraft.getMinecraft().profiler.startSection("setup");
@@ -75,6 +68,6 @@ public class HudManager {
         NordTessellator.releaseGL();
         Minecraft.getMinecraft().profiler.endSection();
         Minecraft.getMinecraft().profiler.endSection();
-    }
-
-}
+    } */
+/*
+} */

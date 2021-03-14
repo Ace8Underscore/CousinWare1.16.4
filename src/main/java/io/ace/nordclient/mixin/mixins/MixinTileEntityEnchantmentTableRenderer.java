@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.hacks.render.NoLag;
 import io.ace.nordclient.managers.HackManager;
@@ -17,4 +17,4 @@ public abstract class MixinTileEntityEnchantmentTableRenderer {
             info.cancel();
         }
     }
-}
+} */

@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.managers.HackManager;
 import net.minecraft.client.Minecraft;
@@ -21,4 +21,4 @@ public abstract class MixinSlotShulkerBox {
         }
 
     }
-}
+} */

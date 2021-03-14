@@ -2,7 +2,7 @@ package io.ace.nordclient.event;
 
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class AddCollisionBoxToListEvent extends EventCancellable {
     private final Block block;
-    private final IBlockState state;
+    private final BlockState state;
     private final World world;
     private final BlockPos pos;
     private final AxisAlignedBB entityBox;
@@ -23,7 +23,7 @@ public class AddCollisionBoxToListEvent extends EventCancellable {
     private final Entity entity;
     private final boolean bool;
 
-    public AddCollisionBoxToListEvent(Block block, IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean bool) {
+    public AddCollisionBoxToListEvent(Block block, BlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean bool) {
         super();
         this.block = block;
         this.state = state;
@@ -39,7 +39,7 @@ public class AddCollisionBoxToListEvent extends EventCancellable {
         return block;
     }
 
-    public IBlockState getState() {
+    public BlockState getState() {
         return state;
     }
 

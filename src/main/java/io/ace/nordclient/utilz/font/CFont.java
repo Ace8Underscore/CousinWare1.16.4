@@ -1,4 +1,5 @@
 package io.ace.nordclient.utilz.font;
+
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
 
@@ -11,7 +12,6 @@ import java.awt.image.BufferedImage;
  */
 public class CFont {
 
-    private float imgSize = 512;
     protected CharData[] charData = new CharData[256];
     protected Font font;
     protected boolean antiAlias;
@@ -19,6 +19,7 @@ public class CFont {
     protected int fontHeight = -1;
     protected int charOffset = 0;
     protected DynamicTexture tex;
+    private final float imgSize = 512;
 
     public CFont(Font font, boolean antiAlias, boolean fractionalMetrics) {
         this.font = font;
@@ -30,7 +31,7 @@ public class CFont {
     protected DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
         BufferedImage img = generateFontImage(font, antiAlias, fractionalMetrics, chars);
         try {
-            return new DynamicTexture(img);
+            //return new DynamicTexture(img);
         } catch (Exception e) {
             e.printStackTrace();
         }

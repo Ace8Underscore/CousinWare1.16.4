@@ -1,30 +1,29 @@
 package io.ace.nordclient.event;
 
-import com.google.common.collect.Maps;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
+import io.ace.nordclient.command.commands.Bind;
 import io.ace.nordclient.managers.CommandManager;
 import io.ace.nordclient.managers.HackManager;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.NewChatGui;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.IngameMenuScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientChatEvent;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.InputEvent;
-import org.apache.commons.io.IOUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
-import org.lwjgl.input.Keyboard;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.lwjgl.glfw.GLFW;
+//import org.lwjgl.input.Keyboard;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Map;
 
 public class EventProcessor {
     /**
@@ -32,12 +31,12 @@ public class EventProcessor {
      */
 
 
-    public static final Minecraft mc = Minecraft.getMinecraft();
+    public static final Minecraft mc = Minecraft.getInstance();
+
     CommandManager commandManager = new CommandManager();
 
-
     public void init() {
-        CousinWare.INSTANCE.getEventManager().addEventListener(this);
+        CousinWare.EVENT_BUS.subscribe(this);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -51,7 +50,7 @@ public class EventProcessor {
                 commandManager.callClientCommand(event.getMessage().substring(1));
             } catch (Exception e) {
                 e.printStackTrace();
-                Command.sendClientSideMessage(ChatFormatting.DARK_RED + "Error: " + e.getMessage());
+                Command.sendClientSideMessage(TextFormatting.DARK_RED + "Error: " + e.getMessage());
             }
 
         }
@@ -59,23 +58,30 @@ public class EventProcessor {
 
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public void onKeyInput(InputEvent.KeyInputEvent event) {
-        if (Keyboard.getEventKeyState()) {
-            if (Keyboard.getEventKey() == 0 || Keyboard.getEventKey() == Keyboard.KEY_NONE) return;
-            //Hack binds
-            HackManager.onBind(Keyboard.getEventKey());
+        if (event.getAction() == 1) {
+            if (event.toString().equals(" ") || event.toString().equalsIgnoreCase("SPACE")) return;
+            int key = event.getKey();
+            //mc.player.sendChatMessage(String.valueOf(event.getKey()));
+            if (mc.currentScreen == null) {
+                HackManager.getHacks().forEach(h -> {
+                    if (h.getBind() == key) {
+                        HackManager.onBind(key);
+                    }
+                });
 
-
+            }
         }
     }
 
     @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
         if (event.isCanceled()) return;
-        HackManager.onWorldRender(event);
+        //HackManager.onWorldRender(event);
     }
 
-    @Listener
-    public void onUpdate(UpdateEvent event) {
+    @SubscribeEvent
+    public void onTick(TickEvent.ClientTickEvent event) {
+        //rainbow stuff
         if (mc.player != null || mc.world != null) {
             HackManager.onUpdate();
         }
@@ -83,36 +89,16 @@ public class EventProcessor {
 
     @SubscribeEvent
     public void onInputUpdate(InputUpdateEvent event) {
-        CousinWare.INSTANCE.getEventManager().dispatchEvent(event);
+        if (mc.player != null && mc.world != null) CousinWare.EVENT_BUS.post(event);
     }
 
-
-    private final Map<String, String> uuidNameCache = Maps.newConcurrentMap();
-
-    public String resolveName(String uuid) {
-        uuid = uuid.replace("-", "");
-        if (uuidNameCache.containsKey(uuid)) {
-            return uuidNameCache.get(uuid);
+    @EventHandler
+    private final Listener<UpdateEvent> listener = new Listener<>(event -> {
+        if (mc.player != null || mc.world != null) {
+            //HackManager.onUpdate();
         }
+    });
 
-        final String url = "https://api.mojang.com/user/profiles/" + uuid + "/names";
-        try {
-            final String nameJson = IOUtils.toString(new URL(url));
-            if (nameJson != null && nameJson.length() > 0) {
-                final JSONArray jsonArray = (JSONArray) JSONValue.parseWithException(nameJson);
-                if (jsonArray != null) {
-                    final JSONObject latestName = (JSONObject) jsonArray.get(jsonArray.size() - 1);
-                    if (latestName != null) {
-                        return latestName.get("name").toString();
-                    }
-                }
-            }
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 }
 
 

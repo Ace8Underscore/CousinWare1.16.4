@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.accessor;
+/*package io.ace.nordclient.mixin.accessor;
 
 import net.minecraft.network.play.server.SPacketPlayerPosLook;
 
@@ -10,23 +10,23 @@ public interface ISPacketPlayerPosLook {
 
     double getX();
 
-    double getY();
-
-    double getZ();
-
     void setX(double x);
 
+    double getY();
+
     void setY(double y);
+
+    double getZ();
 
     void setZ(double z);
 
     float getYaw();
 
-    float getPitch();
-
     void setYaw(float yaw);
+
+    float getPitch();
 
     void setPitch(float pitch);
 
     int getTeleportId();
-}
+} */

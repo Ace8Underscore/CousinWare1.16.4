@@ -9,10 +9,14 @@ public class Prefix extends Command {
      */
 
     @Override
-    public String[] getClientAlias() { return new String[] {"prefix"};}
+    public String[] getClientAlias() {
+        return new String[]{"prefix"};
+    }
 
     @Override
-    public String getClientSyntax() { return "Prefix (character)"; }
+    public String getClientSyntax() {
+        return "Prefix (character)";
+    }
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {

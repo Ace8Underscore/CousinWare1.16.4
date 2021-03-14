@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import io.ace.nordclient.hacks.client.Core;
@@ -32,4 +32,4 @@ public abstract class MixinGuiConnecting extends GuiScreen {
             super.drawScreen(mouseX, mouseY, partialTicks);
         }
     }
-}
+} */

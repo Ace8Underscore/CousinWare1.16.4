@@ -5,9 +5,9 @@ import net.minecraft.util.math.BlockPos;
 
 public class PlayerUtil {
 
-    private final static Minecraft mc = Minecraft.getMinecraft();
+    private final static Minecraft mc = Minecraft.getInstance();
 
     public static BlockPos getPlayerPos() {
-        return new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+        return new BlockPos(mc.player.getPosX(), mc.player.getPosY(), mc.player.getPosZ());
     }
 }

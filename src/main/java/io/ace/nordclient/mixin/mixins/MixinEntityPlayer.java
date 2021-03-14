@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.event.EventPlayerTravel;
@@ -19,15 +19,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityPlayer.class)
 public abstract class MixinEntityPlayer extends EntityLivingBase {
-    @Shadow public abstract String getName();
-
     public MixinEntityPlayer(World worldIn) {
         super(worldIn);
     }
 
+    @Shadow
+    public abstract String getName();
+
     @Inject(method = "jump", at = @At("HEAD"), cancellable = true)
     public void onJump(CallbackInfo ci) {
-        if(Minecraft.getMinecraft().player.getName() == this.getName()){
+        if (Minecraft.getMinecraft().player.getName() == this.getName()) {
             CousinWare.INSTANCE.getEventManager().dispatchEvent(new PlayerJumpEvent());
         }
     }
@@ -41,6 +42,7 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
             info.cancel();
         }
     }
+
     @Inject(method = "applyEntityCollision", at = @At("HEAD"), cancellable = true)
     public void applyEntityCollision(Entity entityIn, CallbackInfo info) {
         if (HackManager.getHackByName("Velocity").isEnabled()) {
@@ -48,12 +50,14 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
         }
 
     }
+
     @Inject(method = "isPushedByWater()Z", at = @At("HEAD"), cancellable = true)
     public void isPushedByWater(CallbackInfoReturnable infoReturnable) {
         if (HackManager.getHackByName("Velocity").isEnabled()) {
             infoReturnable.setReturnValue(false);
         }
     }
+
     @Inject(method = "collideWithPlayer", at = @At("HEAD"), cancellable = true)
     private void collideWithPlayer(Entity entityIn, CallbackInfo info) {
         if (HackManager.getHackByName("Velocity").isEnabled()) {
@@ -61,4 +65,4 @@ public abstract class MixinEntityPlayer extends EntityLivingBase {
         }
     }
 
-}
+} */

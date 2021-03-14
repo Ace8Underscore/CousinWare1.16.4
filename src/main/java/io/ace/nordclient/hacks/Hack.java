@@ -1,16 +1,17 @@
 package io.ace.nordclient.hacks;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
-import io.ace.nordclient.event.RenderEvent;
 import io.ace.nordclient.managers.HackManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
+//import org.lwjgl.input.Keyboard;
+
 
 public class Hack {
-    public static final Minecraft mc = Minecraft.getMinecraft();
+    public static final Minecraft mc = Minecraft.getInstance();
 
     public String name;
     public String description;
@@ -26,7 +27,7 @@ public class Hack {
         name = hackName;
         description = " ";
         category = hackCategory;
-        bind = Keyboard.KEY_NONE;
+        bind = GLFW.GLFW_KEY_UNKNOWN;
         enabled = false;
         drawn = true;
         this.color = decimalColor;
@@ -38,84 +39,91 @@ public class Hack {
         name = hackName;
         description = hackDescription;
         category = hackCategory;
-        bind = Keyboard.KEY_NONE;
+        bind = GLFW.GLFW_KEY_UNKNOWN;
         enabled = false;
         drawn = true;
         this.color = decimalColor;
 
     }
 
-    public int getBind(){
+    public int getBind() {
         return bind;
     }
 
-    public void setBind(int b){
+    public void setBind(int b) {
         bind = b;
     }
 
-    public void onUpdate(){}
-
-    public void onWorldRender(RenderEvent event) {}
-
-    protected void onEnable(){
+    public void onUpdate() {
     }
 
-    protected void onDisable(){
+   // public void onWorldRender(RenderEvent event) {
+    //}
+
+    protected void onEnable() {
+    }
+
+    protected void onDisable() {
     }
 //
 
-    public boolean isEnabled(){
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public boolean isDisabled(){ return !enabled; }
-
-    public boolean isVisableOnArray() { return visableOnArray;}
-
-
-    public void setEnabled(boolean e){
+    public void setEnabled(boolean e) {
         enabled = e;
     }
 
+    public boolean isDisabled() {
+        return !enabled;
+    }
 
-    public void toggle(){
-        if(isEnabled()) {
+    public boolean isVisableOnArray() {
+        return visableOnArray;
+    }
+
+    public void toggle() {
+        if (isEnabled()) {
             disable();
-        } else if (!isEnabled()){
+        } else if (!isEnabled()) {
             enable();
         }
     }
 
     public void enable() {
-        CousinWare.INSTANCE.getEventManager().addEventListener(this);
+        CousinWare.EVENT_BUS.subscribe(this);
         MinecraftForge.EVENT_BUS.register(this);
         visableOnArray = true;
         anima = 0;
         setEnabled(true);
-        if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
-            Command.sendClientSideMessage("Enabled " + ChatFormatting.GREEN + this.name);
-        }
+        //if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
+            Command.sendClientSideMessage("Enabled " + TextFormatting.GREEN + this.name);
+        //}
         //MinecraftForge.EVENT_BUS.register(this);
         onEnable();
     }
 
     public void disable() {
-        CousinWare.INSTANCE.getEventManager().removeEventListener(this);
+        CousinWare.EVENT_BUS.unsubscribe(this);
         MinecraftForge.EVENT_BUS.unregister(this);
         setEnabled(false);
-        if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
-            Command.sendClientSideMessage("Disabled " + ChatFormatting.RED + this.name);
-        }
+        //if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
+            Command.sendClientSideMessage("Disabled " + TextFormatting.RED + this.name);
+        //}
         //MinecraftForge.EVENT_BUS.unregister(this);
         onDisable();
     }
-    public boolean isDrawn() {return drawn;}
 
-    public Category getCategory(){
+    public boolean isDrawn() {
+        return drawn;
+    }
+
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category c){
+    public void setCategory(Category c) {
         category = c;
     }
 
@@ -132,13 +140,9 @@ public class Hack {
         return description;
     }
 
-    public String getHudInfo(){
+    public String getHudInfo() {
         return "";
     }
-
-
-
-
 
 
     public enum Category {

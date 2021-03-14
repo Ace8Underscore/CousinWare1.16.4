@@ -23,11 +23,10 @@ public class FriendList extends Command {
     public void onClientCommand(String command, String[] args) throws Exception {
         FriendManager.getFriends()
                 .stream()
-                .forEach(friend ->  {
+                .forEach(friend -> {
                     Command.sendClientSideMessage(friend.getName());
                 });
 
 
-
-            }
-        }
+    }
+}

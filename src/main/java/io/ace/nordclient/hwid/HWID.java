@@ -9,9 +9,8 @@ import java.util.List;
 
 public class HWID {
 
-    static List<String> hwids = new ArrayList<>();
-
     public static URL pastebin;
+    static List<String> hwids = new ArrayList<>();
 
     static {
         try {
@@ -29,12 +28,12 @@ public class HWID {
             while ((inputLine = in.readLine()) != null) {
                 hwids.add(inputLine);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public static boolean isGoodHWID(String id){
+    public static boolean isGoodHWID(String id) {
         return hwids.contains(id);
     }
 

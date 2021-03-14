@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import io.ace.nordclient.hacks.client.Core;
@@ -28,7 +28,8 @@ public abstract class MixinGuiIngameMenu extends GuiScreen {
             }
             if (!this.mc.integratedServerIsRunning) {
                 this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + -16, ChatFormatting.GOLD + "Return to " + Objects.requireNonNull(mc.getCurrentServerData()).serverIP));
-            } else this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + -16, ChatFormatting.GOLD + "Return to Game"));
+            } else
+                this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + -16, ChatFormatting.GOLD + "Return to Game"));
             this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + -16, 98, 20, I18n.format("menu.options", new Object[0])));
             this.buttonList.add(new GuiButton(12, this.width / 2 + 2, this.height / 4 + 96 + i, 98, 20, I18n.format("fml.menu.modoptions", new Object[0])));
             GuiButton guibutton = this.addButton(new GuiButton(7, this.width / 2 - 100, this.height / 4 + 72 + -16, 200, 20, I18n.format("menu.shareToLan", new Object[0])));
@@ -37,4 +38,4 @@ public abstract class MixinGuiIngameMenu extends GuiScreen {
             this.buttonList.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + -16, 98, 20, I18n.format("gui.stats", new Object[0])));
         }
     }
-}
+} */

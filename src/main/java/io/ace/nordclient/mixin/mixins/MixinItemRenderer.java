@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.hacks.render.ViewModelChanger;
 import io.ace.nordclient.managers.HackManager;
@@ -19,8 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = ItemRenderer.class, priority = 5000)
 public abstract class MixinItemRenderer {
-    private final Minecraft mc = Minecraft.getMinecraft();
     public final RenderManager renderManager;
+    private final Minecraft mc = Minecraft.getMinecraft();
 
     protected MixinItemRenderer(RenderManager renderManager) {
         this.renderManager = renderManager;
@@ -29,6 +29,7 @@ public abstract class MixinItemRenderer {
     /**
      * @author Ace_______
      */
+/*
     @Overwrite
     private void renderArm(EnumHandSide p_187455_1_) {
         this.mc.getTextureManager().bindTexture(this.mc.player.getLocationSkin());
@@ -52,7 +53,7 @@ public abstract class MixinItemRenderer {
     /**
      * @author
      */
-    @Inject(method = "renderArms", at = @At("HEAD"), cancellable = true)
+   /* @Inject(method = "renderArms", at = @At("HEAD"), cancellable = true)
     private void renderArms(CallbackInfo info) {
         if (HackManager.getHackByName("QuickDrop").isEnabled()) {
             if (!this.mc.player.isInvisible()) {
@@ -70,6 +71,7 @@ public abstract class MixinItemRenderer {
         }
 
     }
+
     /**
      * @author
      */
@@ -139,14 +141,14 @@ public abstract class MixinItemRenderer {
             GlStateManager.rotate((float) i * f3 * 30.0F, 0.0F, 0.0F, 1.0F);
         }
     } */
-    @Inject(method = "transformFirstPerson", at = @At("HEAD"), cancellable = true)
+  /*  @Inject(method = "transformFirstPerson", at = @At("HEAD"), cancellable = true)
     public void transformFirstPerson(EnumHandSide hand, float p_187453_2_, CallbackInfo info) {
         if (HackManager.getHackByName("ViewModelChanger").isEnabled()) {
             int i = hand == EnumHandSide.RIGHT ? 1 : -1;
             float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * 3.1415927F);
             GlStateManager.rotate((float) i * (-45.0f + f * -20.0F), 0.0F, 100.0F, 0.0F);
             float f1 = MathHelper.sin(MathHelper.sqrt(p_187453_2_) * 3.1415927F);
-            GlStateManager.rotate((float)i * f1 * -ViewModelChanger.rotateX.getValInt(), 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate((float) i * f1 * -ViewModelChanger.rotateX.getValInt(), 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(f1 * -ViewModelChanger.rotateY.getValInt(), 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate((float) i * ViewModelChanger.rotateZ.getValInt(), 0.0F, 1.0F, 0.0F);
             // still gotta find what does pitch
@@ -161,6 +163,6 @@ public abstract class MixinItemRenderer {
         }
     }
 
-}
+} */
 
 

@@ -4,31 +4,11 @@
   "package": "io.ace.nordclient.mixin.mixins",
   "refmap": "mixin.nordclient.refmap.json",
   "mixins": [
-    "MixinBlockRendererDispatcher",
-    "MixinCPacketPlayer",
-    "MixinEntity",
     "MixinEntityPlayerSP",
-    "MixinEntityRenderer",
-    "MixinGuiNewChat",
-    "MixinGuiPlayerTabOverlay",
-    "MixinItemRenderer",
-    "MixinLayerArmorBase",
-    "MixinModelEnderCrystal",
-    "MixinNetworkManager",
-    "MixinPlayerControllerMP",
-    "MixinRenderFallingBlock",
-    "MixinRenderGlobal",
-    "MixinRenderItem",
-    "MixinRenderMinecart",
-    "MixinRenderPlayer",
-    "MixinSlotShulkerBox",
-    "MixinSPacketEntityVelocity",
-    "MixinSPacketPlayerPosLook",
-    "MixinTileEntityEnchantmentTableRenderer",
-    "MixinTimer"
+    "MixinNetworkManager"
+
   ],
   "client": [
-    "MixinGuiConnecting",
-    "MixinGuiIngameMenu"
+
   ]
 }

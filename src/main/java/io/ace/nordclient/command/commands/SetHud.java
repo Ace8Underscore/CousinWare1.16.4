@@ -1,4 +1,4 @@
-package io.ace.nordclient.command.commands;
+/*package io.ace.nordclient.command.commands;
 
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.hud.Hud;
@@ -17,8 +17,8 @@ public class SetHud extends Command {
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
-        for(Hud h : HudManager.getHuds()) {
-            if(h.getName().equalsIgnoreCase(args[0])) {
+        for (Hud h : HudManager.getHuds()) {
+            if (h.getName().equalsIgnoreCase(args[0])) {
                 if (!args[2].equals("")) {
                     if (args[1].equalsIgnoreCase("x")) h.setX(Integer.parseInt(args[2]));
                     if (args[1].equalsIgnoreCase("y")) h.setY(Integer.parseInt(args[2]));
@@ -27,4 +27,4 @@ public class SetHud extends Command {
             }
         }
     }
-}
+} */

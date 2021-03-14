@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import com.google.common.base.Predicate;
 import io.ace.nordclient.hacks.misc.NoEntityTrace;
@@ -21,7 +21,9 @@ import java.util.List;
 @Mixin(value = EntityRenderer.class, priority = 2147483647)
 public class MixinEntityRenderer {
 
-    @Shadow @Final public Minecraft mc;
+    @Shadow
+    @Final
+    public Minecraft mc;
 
     @Redirect(method = "getMouseOver", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/WorldClient;getEntitiesInAABBexcluding(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/AxisAlignedBB;Lcom/google/common/base/Predicate;)Ljava/util/List;"))
     public List<Entity> getEntitiesInAABBexcluding(WorldClient worldClient, Entity entityIn, AxisAlignedBB boundingBox, Predicate predicate) {
@@ -34,3 +36,4 @@ public class MixinEntityRenderer {
     }
 
 }
+ */

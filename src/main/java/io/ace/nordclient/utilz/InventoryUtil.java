@@ -2,8 +2,8 @@ package io.ace.nordclient.utilz;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
  */
 
 public class InventoryUtil {
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final Minecraft mc = Minecraft.getInstance();
 
     public static int findBlockInHotbar(Block blockToFind) {
 
@@ -22,11 +22,11 @@ public class InventoryUtil {
             // filter out non-block items
             ItemStack stack = mc.player.inventory.getStackInSlot(i);
 
-            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof ItemBlock)) {
+            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof BlockItem)) {
                 continue;
             }
 
-            Block block = ((ItemBlock) stack.getItem()).getBlock();
+            Block block = ((BlockItem) stack.getItem()).getBlock();
             if (block.equals(blockToFind)) {
                 slot = i;
                 break;
@@ -61,6 +61,7 @@ public class InventoryUtil {
         return slot;
 
     }
+
     public static int getItems(Item i) {
         return mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == i).mapToInt(ItemStack::getCount).sum() + mc.player.inventory.offHandInventory.stream().filter(itemStack -> itemStack.getItem() == i).mapToInt(ItemStack::getCount).sum();
     }

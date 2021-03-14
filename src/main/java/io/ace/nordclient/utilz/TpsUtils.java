@@ -2,9 +2,11 @@ package io.ace.nordclient.utilz;
 
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.event.PacketEvent;
-import net.minecraft.network.play.server.SPacketTimeUpdate;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.server.SUpdateTimePacket;
 import net.minecraft.util.math.MathHelper;
-import team.stiff.pomelo.impl.annotated.handler.annotation.Listener;
 
 import java.util.Arrays;
 
@@ -12,15 +14,16 @@ import java.util.Arrays;
  * @author 086
  */
 public class TpsUtils {
-    private static float[] tickRates = new float[20];
+    private static final float[] tickRates = new float[20];
     private int nextIndex = 0;
     private long timeLastTimeUpdate;
 
-    public TpsUtils(){
+    public TpsUtils() {
         nextIndex = 0;
         timeLastTimeUpdate = -1L;
         Arrays.fill(tickRates, 0.0F);
-        CousinWare.INSTANCE.getEventManager().addEventListener(this);
+        Minecraft mc = Minecraft.getInstance();
+        CousinWare.EVENT_BUS.subscribe(this);
     }
 
     public static float getTickRate() {
@@ -44,10 +47,10 @@ public class TpsUtils {
         this.timeLastTimeUpdate = System.currentTimeMillis();
     }
 
-    @Listener
-    public void onUpdate(PacketEvent.Receive event) {
-        if (event.getPacket() instanceof SPacketTimeUpdate) {
-            onTimeUpdate();
+    @EventHandler
+    private Listener<PacketEvent.Receive> listener = new Listener<>(event -> {
+            if (event.getPacket() instanceof SUpdateTimePacket) {
+                onTimeUpdate();
         }
-    }
+    });
 }

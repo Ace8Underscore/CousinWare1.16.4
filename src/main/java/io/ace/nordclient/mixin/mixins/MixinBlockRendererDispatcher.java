@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.hacks.misc.IllegalFinder;
 import io.ace.nordclient.managers.HackManager;
@@ -21,14 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockRendererDispatcher.class)
 public abstract class MixinBlockRendererDispatcher {
 
+    private static final Minecraft mc = Minecraft.getMinecraft();
     @Shadow
     @Final
     private BlockModelRenderer blockModelRenderer;
 
     @Shadow
     public abstract IBakedModel getModelForState(IBlockState state);
-
-    private static final Minecraft mc = Minecraft.getMinecraft();
 
     @Inject(method = "renderBlock", at = @At("HEAD"), cancellable = true)
     public void renderBlock(IBlockState state, BlockPos pos, IBlockAccess blockAccess, BufferBuilder bufferBuilderIn, CallbackInfoReturnable<Boolean> info) {
@@ -79,4 +78,4 @@ public abstract class MixinBlockRendererDispatcher {
         }
 
     }
-}
+} */

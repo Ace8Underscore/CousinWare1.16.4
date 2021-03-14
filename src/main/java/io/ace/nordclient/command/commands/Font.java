@@ -5,7 +5,7 @@ import io.ace.nordclient.command.Command;
 import io.ace.nordclient.utilz.font.CFontRenderer;
 
 
-public class Font extends Command{
+public class Font extends Command {
 
 
     @Override
@@ -24,7 +24,7 @@ public class Font extends Command{
         CousinWare.INSTANCE.fontRenderer = new CFontRenderer(new java.awt.Font(font, java.awt.Font.PLAIN, 18), true, false);
         CousinWare.INSTANCE.fontRenderer.setFontName(font);
         CousinWare.INSTANCE.fontRenderer.setFontSize(18);
-            }
     }
+}
 
 

@@ -1,4 +1,4 @@
-package io.ace.nordclient.utilz;
+/*package io.ace.nordclient.utilz;
 
 import io.ace.nordclient.CousinWare;
 import net.minecraft.client.Minecraft;
@@ -8,11 +8,9 @@ import net.minecraft.client.gui.ScaledResolution;
  * @author Ace________/Ace_#1233
  */
 
-public class FontRenderUtil {
-    private static final Minecraft mc = Minecraft.getMinecraft();
+/*public class FontRenderUtil {
+    private static final Minecraft mc = Minecraft.getInstance();
     private static final ScaledResolution sr = new ScaledResolution(mc);
-
-
 
 
     public static float drawCenteredStringWithShadow(String text, float x, float y, int color) {
@@ -49,4 +47,5 @@ public class FontRenderUtil {
         return CousinWare.INSTANCE.fontRenderer.drawString(text, CousinWare.INSTANCE.fontRenderer.getStringWidth(text) - (int) x, (int) y, color);
     }
 
-}
+} */
+

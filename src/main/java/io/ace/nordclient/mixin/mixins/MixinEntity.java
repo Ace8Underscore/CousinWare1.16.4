@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.mixin.accessor.IEntity;
 import net.minecraft.entity.Entity;
@@ -14,20 +14,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinEntity implements IEntity {
 
 
-    @Shadow public boolean isInWeb;
+    @Shadow
+    public boolean isInWeb;
 
-    @Shadow public double motionY;
+    @Shadow
+    public double motionY;
 
-    @Shadow public double motionX;
+    @Shadow
+    public double motionX;
 
-    @Shadow public double motionZ;
+    @Shadow
+    public double motionZ;
 
-    @Accessor @Override public abstract boolean getIsInWeb();
+    @Accessor
+    @Override
+    public abstract boolean getIsInWeb();
 
-    @Inject(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;motionY:D"),cancellable = true)
+    @Inject(method = "move", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;motionY:D"), cancellable = true)
     public void move(MoverType type, double x, double y, double z, CallbackInfo info) {
         info.cancel();
         motionY = -1;
 
     }
-}
+} */

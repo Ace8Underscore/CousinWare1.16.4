@@ -1,4 +1,4 @@
-package io.ace.nordclient.mixin.mixins;
+/*package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.hacks.misc.EnchantColor;
 import io.ace.nordclient.managers.HackManager;
@@ -13,6 +13,7 @@ public abstract class MixinLayerArmorBase {
     /**
      * @author Ace_______
      */
+/*
     @Redirect(method = "renderEnchantedGlint", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GlStateManager;color(FFFF)V"))
     private static void armorGlint(final float red, final float green, final float blue, final float alpha) {
         if (HackManager.getHackByName("EnchantColor").isEnabled()) {
@@ -22,4 +23,4 @@ public abstract class MixinLayerArmorBase {
         }
     }
 
-}
+} */

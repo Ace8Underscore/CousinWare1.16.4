@@ -1,9 +1,9 @@
 package io.ace.nordclient.command.commands;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.hacks.Hack;
 import io.ace.nordclient.managers.HackManager;
+import net.minecraft.util.text.TextFormatting;
 
 public class Hacks extends Command {
 
@@ -28,17 +28,17 @@ public class Hacks extends Command {
                 .stream()
                 .filter(Hack::isEnabled)
                 .forEach(h -> {
-                    Command.sendClientSideMessage(ChatFormatting.GREEN + h.getName());
+                    Command.sendClientSideMessage(TextFormatting.GREEN + h.getName());
                 });
         HackManager.getHacks()
                 .stream()
                 .filter(Hack::isDisabled)
                 .forEach(h -> {
-                    Command.sendClientSideMessage(ChatFormatting.RED + h.getName());
+                    Command.sendClientSideMessage(TextFormatting.RED + h.getName());
                 });
 
     }
 }
-       // Command.sendClientSideMessage("Hacks: TestCommand, ArrayList, AutoTotem, ");
+// Command.sendClientSideMessage("Hacks: TestCommand, ArrayList, AutoTotem, ");
 
 
