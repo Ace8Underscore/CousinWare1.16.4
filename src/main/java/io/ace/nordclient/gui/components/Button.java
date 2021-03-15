@@ -205,11 +205,6 @@ public class Button extends Component {
         }
     } */
 
-    @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
-    public void onKeyInput(InputEvent.MouseInputEvent event) throws IOException {
-
-    }
-
     @Override
     public void mouseClicked(final int mouseX, final int mouseY, final int button) {
         if (this.isMouseOnButton(mouseX, mouseY) && button == 0) {

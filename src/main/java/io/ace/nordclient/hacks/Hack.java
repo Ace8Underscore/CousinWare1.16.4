@@ -3,7 +3,6 @@ package io.ace.nordclient.hacks;
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.managers.HackManager;
-import io.ace.nordclient.setting2.Value;
 import io.ace.nordclient.settings.SettingBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
@@ -131,11 +130,6 @@ public class Hack {
         //}
         //MinecraftForge.EVENT_BUS.unregister(this);
         onDisable();
-    }
-
-    public <T> Value<T> register(final Value<T> s) {
-        CousinWare.INSTANCE.valueManager.register(s);
-        return s;
     }
 
     public boolean isDrawn() {

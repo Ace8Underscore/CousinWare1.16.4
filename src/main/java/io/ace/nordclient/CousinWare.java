@@ -12,7 +12,6 @@ import io.ace.nordclient.hacks.Test;
 import io.ace.nordclient.hacks.misc.*;
 import io.ace.nordclient.hwid.HWID;
 import io.ace.nordclient.managers.*;
-import io.ace.nordclient.setting2.ValueManager;
 import io.ace.nordclient.settings.SettingBase;
 import io.ace.nordclient.settings.SettingMode;
 import io.ace.nordclient.settings.SettingSlider;
@@ -46,7 +45,6 @@ public class CousinWare {
 
     public static final Logger log = LogManager.getLogger(NAME);
     public static CousinWare INSTANCE;
-    public ValueManager valueManager;
     public HackManager hackManager;
     //public HudManager hudManager;
     public ConfigUtils configUtils;

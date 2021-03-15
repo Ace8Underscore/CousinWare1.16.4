@@ -4,8 +4,6 @@ import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.event.PacketEvent;
 import io.ace.nordclient.hacks.Hack;
-import io.ace.nordclient.managers.SettingsManager;
-import io.ace.nordclient.setting2.Value;
 import io.ace.nordclient.settings.SettingBase;
 import io.ace.nordclient.settings.SettingMode;
 import io.ace.nordclient.utilz.Setting;

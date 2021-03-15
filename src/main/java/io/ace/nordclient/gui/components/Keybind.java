@@ -2,6 +2,7 @@ package io.ace.nordclient.gui.components;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.ace.nordclient.CousinWare;
+import io.ace.nordclient.command.commands.Bind;
 import io.ace.nordclient.gui.Component;
 import io.ace.nordclient.hacks.client.ClickGuiHack;
 import net.minecraft.client.gui.AbstractGui;
@@ -32,16 +33,16 @@ public class Keybind extends Component {
 
     @Override
     public void renderComponent(MatrixStack stack) {
-        AbstractGui.fill(this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 1, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 15, this.hovered ? new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).darker().getRGB() : new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).getRGB());
-        AbstractGui.fill(this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 1, new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).getRGB());
-        AbstractGui.fill(this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 15, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 16, new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).getRGB());
-        AbstractGui.fill(this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + 1, this.parent.parent.getY() + this.offset + 16, new Color(ClickGuiHack.red.getValInt(), ClickGuiHack.green.getValInt(), ClickGuiHack.blue.getValInt(), 255).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 1, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 15, this.hovered ? new Color(29, 37, 48, 255).darker().getRGB() : new Color(29, 37, 48, 255).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 1, new Color(29, 37, 48, 255).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 15, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 16, new Color(29, 37, 48, 255).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + 1, this.parent.parent.getY() + this.offset + 16, new Color(165, 147, 44, 255).getRGB());
 
         //FontUtils.drawStringWithShadow(((ClickGuiModule) ModuleManager.getModuleByName("ClickGui")).customFont.getValue(),this.binding ? "Press a key..." : ("Key: " + ChatFormatting.GRAY + Keyboard.getKeyName(this.parent.mod.getBind())), this.parent.parent.getX() + 2, this.parent.parent.getY() + this.offset + 4, -1);
        // if (!Core.customFont.getValBoolean())
-      //      mc.fontRenderer.drawStringWithShadow(this.binding ? "Press a key..." : ("Key: " + ChatFormatting.GRAY + Keyboard.getKeyName(this.parent.hack.getBind())), this.parent.parent.getX() + 2, this.parent.parent.getY() + this.offset + 4, -1);
+        mc.fontRenderer.drawStringWithShadow(stack, this.binding ? "Press a key..." : ("Key: " + TextFormatting.GRAY + Bind.getKeyString(this.parent.hack.getBind())), this.parent.parent.getX() + 2, this.parent.parent.getY() + this.offset + 4, -1);
        // else
-            CousinWare.INSTANCE.fontRenderer.drawStringWithShadow(this.binding ? "Press a key..." : ("Key: " + TextFormatting.GRAY + GLFW.glfwGetKeyName(this.parent.hack.getBind(), 1)), this.parent.parent.getX() + 2, this.parent.parent.getY() + this.offset + 4, -1);
+            //CousinWare.INSTANCE.fontRenderer.drawStringWithShadow(this.binding ? "Press a key..." : ("Key: " + TextFormatting.GRAY + GLFW.glfwGetKeyName(this.parent.hack.getBind(), 1)), this.parent.parent.getX() + 2, this.parent.parent.getY() + this.offset + 4, -1);
     }
 
     @Override
