@@ -467,14 +467,14 @@ public class ConfigUtils {
 
 
     public void saveSettingsList() {
-        File file;
+      /*  File file;
         BufferedWriter out;
         Iterator var3;
         Setting i;
         try {
             file = new File(Settings.getAbsolutePath(), "Number.txt");
             out = new BufferedWriter(new FileWriter(file));
-            var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
+            var3 = CousinWare.INSTANCE.settingsManager.get_array_settings().iterator();
 
             while (var3.hasNext()) {
                 i = (Setting) var3.next();
@@ -490,7 +490,7 @@ public class ConfigUtils {
         try {
             file = new File(Settings.getAbsolutePath(), "Boolean.txt");
             out = new BufferedWriter(new FileWriter(file));
-            var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
+            var3 = CousinWare.INSTANCE.settingsManager.get_array_settings().iterator();
 
             while (var3.hasNext()) {
                 i = (Setting) var3.next();
@@ -506,7 +506,7 @@ public class ConfigUtils {
         try {
             file = new File(Settings.getAbsolutePath(), "String.txt");
             out = new BufferedWriter(new FileWriter(file));
-            var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
+            var3 = CousinWare.INSTANCE.settingsManager.get_array_settings().iterator();
 
             while (var3.hasNext()) {
                 i = (Setting) var3.next();
@@ -522,7 +522,7 @@ public class ConfigUtils {
         try {
             file = new File(Settings.getAbsolutePath(), "Color.txt");
             out = new BufferedWriter(new FileWriter(file));
-            var3 = CousinWare.INSTANCE.settingsManager.getSettings().iterator();
+            var3 = CousinWare.INSTANCE.settingsManager.get_array_settings().iterator();
 
             while (var3.hasNext()) {
                 i = (Setting) var3.next();
@@ -533,7 +533,7 @@ public class ConfigUtils {
 
             out.close();
         } catch (Exception var7) {
-        }
+        } */
 
     }
 
@@ -562,8 +562,8 @@ public class ConfigUtils {
                 m = curLine.split(":")[2];
                 for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
-                        mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
-                        mod.setValDouble(Double.parseDouble(isOn));
+                       // mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
+                        //mod.setValDouble(Double.parseDouble(isOn));
                     }
                 }
             }
@@ -587,8 +587,8 @@ public class ConfigUtils {
                 m = curLine.split(":")[2];
                 for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
-                        mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
-                        mod.setValColor(new Color(color));
+                       // mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
+                       // mod.setValColor(new Color(color));
                     }
                 }
             }
@@ -612,8 +612,8 @@ public class ConfigUtils {
                 m = curLine.split(":")[2];
                 for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
-                        mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
-                        mod.setValBoolean(Boolean.parseBoolean(isOn));
+                      //  mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
+                       // mod.setValBoolean(Boolean.parseBoolean(isOn));
                     }
                 }
             }
@@ -637,8 +637,8 @@ public class ConfigUtils {
                 m = curLine.split(":")[2];
                 for (Hack h : HackManager.getHacks()) {
                     if (h != null && h.getName().equalsIgnoreCase(m)) {
-                        mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
-                        mod.setValString(isOn);
+                    //    mod = CousinWare.INSTANCE.settingsManager.getSettingByID(name);
+                    //    mod.setValString(isOn);
                     }
                 }
             }

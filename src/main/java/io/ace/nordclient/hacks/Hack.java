@@ -3,11 +3,17 @@ package io.ace.nordclient.hacks;
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.managers.HackManager;
+import io.ace.nordclient.setting2.Value;
+import io.ace.nordclient.settings.SettingBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.glfw.GLFW;
-//import org.lwjgl.input.Keyboard;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 
 public class Hack {
@@ -22,28 +28,40 @@ public class Hack {
     public int color;
     public double anima;
     public boolean visableOnArray;
+    private List<SettingBase> settings = new ArrayList<>();
 
-    public Hack(String hackName, Category hackCategory, int decimalColor) {
+    public Hack(String hackName, Category hackCategory, int decimalColor, List<SettingBase> s) {
         name = hackName;
         description = " ";
         category = hackCategory;
-        bind = GLFW.GLFW_KEY_UNKNOWN;
+        bind = -189321754;
         enabled = false;
         drawn = true;
         this.color = decimalColor;
         anima = 0;
         visableOnArray = false;
+        if (s != null) {
+            this.settings = s;
+        }
     }
 
-    public Hack(String hackName, Category hackCategory, String hackDescription, int decimalColor) {
+    public Hack(String hackName, Category hackCategory, String hackDescription, int decimalColor, List<SettingBase> s) {
         name = hackName;
         description = hackDescription;
         category = hackCategory;
-        bind = GLFW.GLFW_KEY_UNKNOWN;
+        bind = -189321754;
         enabled = false;
         drawn = true;
         this.color = decimalColor;
+        if (s != null) {
+            this.settings = s;
+        }
 
+    }
+
+    public List<SettingBase> getSettings()
+    {
+        return this.settings;
     }
 
     public int getBind() {
@@ -115,6 +133,11 @@ public class Hack {
         onDisable();
     }
 
+    public <T> Value<T> register(final Value<T> s) {
+        CousinWare.INSTANCE.valueManager.register(s);
+        return s;
+    }
+
     public boolean isDrawn() {
         return drawn;
     }
@@ -134,6 +157,10 @@ public class Hack {
 
     public String getName() {
         return name;
+    }
+
+    public String get_tag() {
+        return this.name;
     }
 
     public String getDescription() {

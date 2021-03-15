@@ -18,7 +18,7 @@ public class Setting extends Command {
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
-        for (Hack h : HackManager.getHacks()) {
+        /*for (Hack h : HackManager.getHacks()) {
             if (h.getName().equalsIgnoreCase(args[0])) {
                 CousinWare.INSTANCE.settingsManager.getSettingsByMod(h).forEach(s -> {
                     if (s.isSlider()) {
@@ -38,8 +38,8 @@ public class Setting extends Command {
                         s.setCustomVal(args[2]);
                         Command.sendClientSideMessage(s.getDisplayName() + " set to " + s.getCustomVal());
                     } */
-                });
-            }
-        }
+              //  });
+            //}
+        //}
     }
 }

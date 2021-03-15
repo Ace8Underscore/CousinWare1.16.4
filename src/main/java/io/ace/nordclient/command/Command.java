@@ -16,6 +16,7 @@ public abstract class Command {
     public static String prefix = ".";
 
     public static void sendClientSideMessage(String message) {
+        if (mc.world == null || mc.player == null) return;
         mc.player.sendMessage(new StringTextComponent(TextFormatting.DARK_RED + "[CousinWare]" + " " + TextFormatting.WHITE + message), mc.player.getUniqueID());
     }
 

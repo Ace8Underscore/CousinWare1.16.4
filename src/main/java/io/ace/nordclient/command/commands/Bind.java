@@ -2,15 +2,8 @@ package io.ace.nordclient.command.commands;
 
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.managers.HackManager;
-import io.ace.nordclient.utilz.keybind.Keybind;
-import net.minecraft.client.KeyboardListener;
-import net.minecraft.client.util.LWJGLMemoryUntracker;
-import net.minecraft.util.datafix.fixes.LWJGL3KeyOptions;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.glfw.GLFW;
-//import org.lwjgl.input.Keyboard;
-//import org.lwjgl.input.Keyboard;
-
 
 public class Bind extends Command {
 
@@ -198,8 +191,8 @@ public class Bind extends Command {
             case "num0" : return GLFW.GLFW_KEY_KP_0;
             case "num." : return GLFW.GLFW_KEY_KP_DECIMAL;
 
-            case "none" : return -1;
-            default: return -1;
+            case "none" : return -189321754;
+            default: return -189321754;
 
         }
     }

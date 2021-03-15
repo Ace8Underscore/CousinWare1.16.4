@@ -19,6 +19,7 @@ import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
@@ -29,7 +30,7 @@ public class EventProcessor {
     /**
      * thx finz0
      */
-
+    boolean hackLoaded = false;
 
     public static final Minecraft mc = Minecraft.getInstance();
 
@@ -73,19 +74,21 @@ public class EventProcessor {
         }
     }
 
+
     @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
         if (event.isCanceled()) return;
         //HackManager.onWorldRender(event);
+
     }
 
-    @SubscribeEvent
+  /*  @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         //rainbow stuff
         if (mc.player != null || mc.world != null) {
-            HackManager.onUpdate();
+
         }
-    }
+    } */
 
     @SubscribeEvent
     public void onInputUpdate(InputUpdateEvent event) {
@@ -95,7 +98,8 @@ public class EventProcessor {
     @EventHandler
     private final Listener<UpdateEvent> listener = new Listener<>(event -> {
         if (mc.player != null || mc.world != null) {
-            //HackManager.onUpdate();
+             HackManager.onUpdate();
+
         }
     });
 

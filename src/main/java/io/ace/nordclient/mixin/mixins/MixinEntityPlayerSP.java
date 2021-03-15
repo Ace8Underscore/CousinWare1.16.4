@@ -28,7 +28,6 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayerEntity {
     public void move(AbstractClientPlayerEntity abstractClientPlayerEntity, MoverType typeIn, Vector3d pos) {
         PlayerMoveEvent moveEvent = new PlayerMoveEvent(typeIn, pos.getX(), pos.getY(), pos.getZ());
         CousinWare.EVENT_BUS.post(moveEvent);
-        Command.sendClientSideMessage("just moved");
         super.move(typeIn, pos);
     }
 
@@ -36,13 +35,11 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayerEntity {
     public void onUpdatePre(CallbackInfo ci) { //support for haram pigs: makes it so that the event still runs when riding entities, or bad shit will happen lol
         UpdateEvent event = new UpdateEvent(EventStageable.EventStage.PRE, this.rotationYaw, this.rotationPitch, this.getPosX(), this.getBoundingBox().minY, this.getPosZ(), this.onGround);
         CousinWare.EVENT_BUS.post(event);
-        Command.sendClientSideMessage("just moved");
         if (event.isCanceled()) ci.cancel();
     }
 
     @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/play/ClientPlayNetHandler;sendPacket(Lnet/minecraft/network/IPacket;)V", ordinal = 0, shift = At.Shift.AFTER))
     public void onUpdatePost(CallbackInfo ci) {
-        Command.sendClientSideMessage("just moved");
         UpdateEvent event = new UpdateEvent(EventStageable.EventStage.POST, this.rotationYaw, this.rotationPitch, this.getPosX(), this.getBoundingBox().minY, this.getPosZ(), this.onGround);
         CousinWare.EVENT_BUS.post(event);
 
@@ -52,7 +49,6 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayerEntity {
     @Inject(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/player/ClientPlayerEntity;onUpdateWalkingPlayer()V", ordinal = 0, shift = At.Shift.AFTER))
     //death by sex
     public void onUpdateElse(CallbackInfo ci) {
-        Command.sendClientSideMessage("just moved");
         UpdateEvent event = new UpdateEvent(EventStageable.EventStage.POST, this.rotationYaw, this.rotationPitch, this.getPosX(), this.getBoundingBox().minY, this.getPosZ(), this.onGround);
         CousinWare.EVENT_BUS.post(event);
     }
