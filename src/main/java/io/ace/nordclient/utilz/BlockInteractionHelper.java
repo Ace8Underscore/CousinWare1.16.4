@@ -1,6 +1,5 @@
-/*package io.ace.nordclient.utilz;
+package io.ace.nordclient.utilz;
 
-import io.ace.nordclient.command.Command;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -9,16 +8,16 @@ import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.CAnimateHandPacket;
 import net.minecraft.network.play.client.CPlayerPacket;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.network.play.client.CPlayerTryUseItemOnBlockPacket;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector3i;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,8 +32,8 @@ public class BlockInteractionHelper {
     public static double pitch;
 
     static {
-        blackList = Arrays.asList(Blocks.ENDER_CHEST, Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.CRAFTING_TABLE, Blocks.ANVIL, Blocks.BREWING_STAND, Blocks.HOPPER, Blocks.DROPPER, Blocks.DISPENSER, Blocks.TRAPDOOR, Blocks.ENCHANTING_TABLE);
-        shulkerList = Arrays.asList(Blocks.WHITE_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.SILVER_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.BLACK_SHULKER_BOX);
+        blackList = Arrays.asList(Blocks.ENDER_CHEST, Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.CRAFTING_TABLE, Blocks.ANVIL, Blocks.BREWING_STAND, Blocks.HOPPER, Blocks.DROPPER, Blocks.DISPENSER, Blocks.ENCHANTING_TABLE);
+        shulkerList = Arrays.asList(Blocks.WHITE_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.BLACK_SHULKER_BOX);
         mc = Minecraft.getInstance();
     }
 
@@ -46,25 +45,27 @@ public class BlockInteractionHelper {
         return stack.getItem() instanceof BlockItem;
     }
 
-    public static void placeBlockScaffold(final BlockPos pos) {
+    public static void placeBlockScaffold(final BlockPos pos, boolean swing) {
         final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
         for (final Direction side : Direction.values()) {
             final BlockPos neighbor = pos.offset(side);
             final Direction side2 = side.getOpposite();
-            if (canBeClicked(neighbor)) {
-                final Vector3d hitVec = new Vector3d(( neighbor).add(0.5, 0.5, 0.5).add(new Vector3f(Vector3d.copyCentered(side2.getDirectionVec()).scale(0.5))));
+            //if (canBeClicked(neighbor)) {
+                final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
+
                 if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
                     faceVectorPacketInstant(hitVec);
-                    processRightClickBlock(neighbor, side2, hitVec);
-                    mc.player.swingArm(Hand.MAIN_HAND);
+                    if (swing) mc.player.swingArm(Hand.MAIN_HAND);
+                    else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
+
                     //mc.rightClickDelayTimer = 4;
                     return;
                 }
-            }
+            //}
         }
     }
 
-    public static void placeBlockScaffoldStrictRaytrace(final BlockPos pos) {
+   /* public static void placeBlockScaffoldStrictRaytrace(final BlockPos pos) {
         BlockPos neighbor = null;
         Direction side2 = null;
         if (findBlockFacingLocationBlock(pos) == 1) {
@@ -104,11 +105,12 @@ public class BlockInteractionHelper {
         final Vector3d hitVec = new Vector3d(( neighbor).add(.5, y, .5).add(new Vector3d(result.sideHit.getDirectionVec()).scale(0.5));
         faceVectorPacketInstant(hitVec);
         processRightClickBlock(neighbor, side2, hitVec);
-        mc.player.swingArm(Hand.MAIN_HAND);
+        if (swing
+ mc.player.swingArm(Hand.MAIN_HAND);
+ else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
+    } */
 
-    }
-
-    public static void placeBlockScaffoldStrict(final BlockPos pos) {
+    public static void placeBlockScaffoldStrict(final BlockPos pos, boolean swing) {
         BlockPos neighbor = null;
         Direction side2 = null;
         if (findBlockFacingLocationBlock(pos) == 1) {
@@ -134,11 +136,11 @@ public class BlockInteractionHelper {
             side2 = Direction.NORTH;
 
         }
-        final Vector3d hitVec = new Vector3d(( neighbor).add(0.5, 0.5, 0.5).add(new Vector3d(side2.getDirectionVec()).scale(0.5));
-        Command.sendClientSideMessage("Placing at " + pos);
+        final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
         faceVectorPacketInstant(hitVec);
         processRightClickBlock(neighbor, side2, hitVec);
-        mc.player.swingArm(Hand.MAIN_HAND);
+        if (swing) mc.player.swingArm(Hand.MAIN_HAND);
+        else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
 
     }
 
@@ -240,40 +242,43 @@ public class BlockInteractionHelper {
         return direction;
     }
 
-    public static void placeBlockScaffoldPiston(final BlockPos pos, final BlockPos look) {
+    public static void placeBlockScaffoldPiston(final BlockPos pos, final BlockPos look, boolean swing) {
         final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
         for (final Direction side : Direction.values()) {
             final BlockPos neighbor = pos.offset(side);
             final BlockPos neighborLook = look.offset(side);
             final Direction side2 = side.getOpposite();
             final Direction side2Look = side.getOpposite();
-            if (canBeClicked(neighbor)) {
-                final Vector3d hitVec = new Vector3d((neighbor).add(0.9, 0.1, 0.9).add(new Vector3d(side2.getDirectionVec()).scale(0.5)));
-                final Vector3d hitVecLook = new Vector3d((neighborLook).add(0.9, 0.1, 0.9).add(new Vector3d(side2Look.getDirectionVec()).scale(0.5)));
-                if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
+          //  if (canBeClicked(neighbor)) {
+            final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.9, .1, .9).add(new Vector3d(side2.toVector3f()).scale(0.5));
+            final Vector3d hitVecLook = new Vector3d(new Vector3f(neighborLook.getX(), neighborLook.getY(), neighborLook.getZ())).add(.9, .1, .9).add(new Vector3d(side2.toVector3f()).scale(0.5));
+
+            //if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
                     faceVectorPacketInstant(hitVecLook);
                     processRightClickBlock(neighbor, side2, hitVec);
-                    mc.player.swingArm(Hand.MAIN_HAND);
+                    if (swing) mc.player.swingArm(Hand.MAIN_HAND);
+                    else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
                     //mc.rightClickDelayTimer = 4;
                     return;
-                }
-            }
+                //}
+           // }
         }
     }
 
-    public static void placeBlockScaffoldNoRotate(final BlockPos pos) {
+    public static void placeBlockScaffoldNoRotate(final BlockPos pos, boolean swing) {
         final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
         for (final Direction side : Direction.values()) {
             final BlockPos neighbor = pos.offset(side);
             final Direction side2 = side.getOpposite();
-            if (canBeClicked(neighbor)) {
-                final Vector3d hitVec = new Vector3d(( neighbor).add(0.5, 0.5, 0.5).add(new Vector3d(side2.getDirectionVec()).scale(0.5));
+           // if (canBeClicked(neighbor)) {
+            final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
                 processRightClickBlock(neighbor, side2, hitVec);
-                mc.player.swingArm(Hand.MAIN_HAND);
+                if (swing) mc.player.swingArm(Hand.MAIN_HAND);
+                else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
                 //mc.rightClickDelayTimer = 4;
                 return;
 
-            }
+            //}
         }
     }
 
@@ -330,13 +335,14 @@ public class BlockInteractionHelper {
         mc.player.connection.sendPacket(new CPlayerPacket.RotationPacket(rotations[0], rotations[1], mc.player.isOnGround()));
     }
 
-    private static void processRightClickBlock(final BlockPos pos, final Direction side, final Vector3d hitVec) {
-        getPlayerController().processRightClickBlock(mc.player, mc.world, pos, side, hitVec, Hand.MAIN_HAND);
+    private static void processRightClickBlock(final BlockPos neighbor, final Direction side2, final Vector3d hitVec) {
+        mc.player.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, new BlockRayTraceResult(hitVec, side2, neighbor, false)));
+
     }
 
-    public static boolean canBeClicked(final BlockPos pos) {
-        return getBlock(pos).canCollideCheck(getState(pos), false);
-    }
+  /*  public static boolean canBeClicked(final BlockPos pos) {
+        return getBlock(pos).
+    } */
 
     private static Block getBlock(final BlockPos pos) {
         return getState(pos).getBlock();
@@ -416,24 +422,24 @@ public class BlockInteractionHelper {
         return circleblocks;
     }
 
-    public static Direction getPlaceableSide(final BlockPos pos) {
+  /*  public static Direction getPlaceableSide(final BlockPos pos) {
         for (final Direction side : Direction.values()) {
             final BlockPos neighbour = pos.offset(side);
             if (mc.world.getBlockState(neighbour).getBlock().canCollideCheck(mc.world.getBlockState(neighbour), false)) {
-                final IBlockState blockState = mc.world.getBlockState(neighbour);
+                final BlockState blockState = mc.world.getBlockState(neighbour);
                 if (!blockState.getMaterial().isReplaceable()) {
                     return side;
                 }
             }
         }
         return null;
-    }
+    } */
 
-    public static boolean rayTracePlaceCheck(BlockPos pos, boolean shouldCheck, float height) {
-        return !shouldCheck || mc.world.rayTraceBlocks(new Vector3d(mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ()), new Vector3d((double) pos.getX(), (double) ((float) pos.getY() + height), (double) pos.getZ()), false, true, false) == null;
-    }
+  //  public static boolean rayTracePlaceCheck(BlockPos pos, boolean shouldCheck, float height) {
+    //    return !shouldCheck || mc.world.rayTraceBlocks(new Vector3d(mc.player.getPosX(), mc.player.getPosY() + (double) mc.player.getEyeHeight(), mc.player.getPosZ()), new Vector3d((double) pos.getX(), (double) ((float) pos.getY() + height), (double) pos.getZ()), pos, Shape, false) == null;
+   // }
 
-    public static boolean rayTracePlaceCheck(BlockPos pos, boolean shouldCheck) {
-        return rayTracePlaceCheck(pos, shouldCheck, 1.0f);
-    }
-} */
+   // public static boolean rayTracePlaceCheck(BlockPos pos, boolean shouldCheck) {
+     //   return rayTracePlaceCheck(pos, shouldCheck, 1.0f);
+   // }
+}

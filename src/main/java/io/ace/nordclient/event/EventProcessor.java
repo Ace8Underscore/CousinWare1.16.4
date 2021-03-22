@@ -2,24 +2,17 @@ package io.ace.nordclient.event;
 
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
-import io.ace.nordclient.command.commands.Bind;
 import io.ace.nordclient.managers.CommandManager;
 import io.ace.nordclient.managers.HackManager;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.NewChatGui;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.IngameMenuScreen;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.glfw.GLFW;
@@ -71,6 +64,11 @@ public class EventProcessor {
                 });
 
             }
+            if (HackManager.getHackByName("ClickGUI").isEnabled()) {
+                if (key == GLFW.GLFW_KEY_ESCAPE) {
+                    HackManager.getHackByName("ClickGUI").disable();
+                }
+            }
         }
     }
 
@@ -78,8 +76,7 @@ public class EventProcessor {
     @SubscribeEvent
     public void onWorldRender(RenderWorldLastEvent event) {
         if (event.isCanceled()) return;
-        //HackManager.onWorldRender(event);
-
+        HackManager.onWorldRender(event);
     }
 
   /*  @SubscribeEvent

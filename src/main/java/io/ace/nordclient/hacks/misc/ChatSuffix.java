@@ -1,17 +1,14 @@
 package io.ace.nordclient.hacks.misc;
 
-import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
 import io.ace.nordclient.event.PacketEvent;
 import io.ace.nordclient.hacks.Hack;
 import io.ace.nordclient.settings.SettingBase;
 import io.ace.nordclient.settings.SettingMode;
-import io.ace.nordclient.utilz.Setting;
 import me.zero.alpine.listener.EventHandler;
 import me.zero.alpine.listener.Listener;
 import net.minecraft.network.play.client.CChatMessagePacket;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,19 +17,12 @@ public class ChatSuffix extends Hack {
 
     String suffix = "";
 //private static final List<SettingBase> settings = Arrays.asList(new SettingMode("Mode: ", "Auto", "Looking"), new SettingMode("Protect: ", "Off", "Hopper", "Obby"), new SettingToggle(true, "Aura"), new SettingSlider(0.0D, 20.0D, 10.0D, 0, "CPS: "), new SettingMode("CPS: ", "Clicks/Sec", "Clicks/Tick", "Tick Delay"), new SettingToggle(false, "SafeShuker"), new SettingToggle(false, "AntiAim"), new SettingToggle(true, "2b Bypass"));
-private static final List<SettingBase> settings = Arrays.asList(new SettingMode("Mode: ", "2b2t", "AceHack", "CousinWare", "Dungannon"));
+private static final List<SettingBase> settings = Arrays.asList(new SettingMode("Mode", "2b2t", "AceHack", "CousinWare", "Dungannon"));
 
     //private Value<String> mode;
 
     public ChatSuffix() {
         super("ChatSuffix", Category.MISC, 13319279, settings);
-        /*ArrayList<String> modes = new ArrayList<>();
-        modes.add("2b2t");
-        modes.add("CousinWare");
-        modes.add("AceHack");
-        modes.add("Dungannon"); */
-        //CousinWare.INSTANCE.settingsManager.rSetting(mode = new Setting("Mode", this, "2b2t", modes, "ChatSuffixModes"));
-        //this.mode = this.register(new Value<String>("Mode", this, "2b2t", new ArrayList<String>(Arrays.asList("Solid", "Outline", "Full"))));
     }
 
     public void onEnable() {

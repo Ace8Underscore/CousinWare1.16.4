@@ -1,7 +1,6 @@
 package io.ace.nordclient.mixin.mixins;
 
 import io.ace.nordclient.CousinWare;
-import io.ace.nordclient.command.Command;
 import io.ace.nordclient.event.EventStageable;
 import io.ace.nordclient.event.PlayerMoveEvent;
 import io.ace.nordclient.event.UpdateEvent;
@@ -55,9 +54,9 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayerEntity {
 
     @Inject(method = "shouldBlockPushPlayer", at = @At(value = "HEAD"), cancellable = true)
     protected void pushOutOfBlocks(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-       // if (HackManager.getHackByName("Velocity").isEnabled()) {
+        if (HackManager.getHackByName("Velocity").isEnabled()) {
             cir.setReturnValue(false);
-       // }
+        }
     }
 
 

@@ -1,31 +1,28 @@
 package io.ace.nordclient;
 
-import io.ace.nordclient.command.Command;
-import io.ace.nordclient.command.commands.Xray;
 import io.ace.nordclient.command.commands.*;
 import io.ace.nordclient.cousingui.CousinGui;
 import io.ace.nordclient.event.EventLaunch;
 import io.ace.nordclient.event.EventProcessor;
 import io.ace.nordclient.gui.ClickGUI2;
 import io.ace.nordclient.hacks.Hack;
-import io.ace.nordclient.hacks.Test;
-import io.ace.nordclient.hacks.misc.*;
 import io.ace.nordclient.hwid.HWID;
-import io.ace.nordclient.managers.*;
+import io.ace.nordclient.managers.CommandManager;
+import io.ace.nordclient.managers.FriendManager;
+import io.ace.nordclient.managers.HackManager;
+import io.ace.nordclient.managers.SettingsManager;
 import io.ace.nordclient.settings.SettingBase;
 import io.ace.nordclient.settings.SettingMode;
 import io.ace.nordclient.settings.SettingSlider;
 import io.ace.nordclient.utilz.TpsUtils;
-import io.ace.nordclient.utilz.configz.ConfigUtils;
+import io.ace.nordclient.utilz.configz.FileMang;
 import io.ace.nordclient.utilz.configz.ShutDown;
 import io.ace.nordclient.utilz.font.CFontRenderer;
 import me.zero.alpine.EventBus;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -33,7 +30,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.awt.Font;
-import java.lang.management.ManagementFactory;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
@@ -47,7 +43,6 @@ public class CousinWare {
     public static CousinWare INSTANCE;
     public HackManager hackManager;
     //public HudManager hudManager;
-    public ConfigUtils configUtils;
     public FriendManager friends;
     public SettingsManager settingsManager;
     public CousinGui cousinGui;
@@ -94,6 +89,16 @@ public class CousinWare {
         cousinGui = new CousinGui();
         clickGui2 = new ClickGUI2();
         //clickGuiHUD = new ClickGuiHUD();
+        FileMang.init();
+
+        FileMang.readModules();
+        FileMang.readSettings();
+        FileMang.readBinds();
+        FileMang.readFriends();
+        FileMang.readDrawn();
+
+        Runtime.getRuntime().addShutdownHook(new ShutDown());
+
 
 
         try {
@@ -121,14 +126,7 @@ public class CousinWare {
             //FMLCommonHandler.instance().exitJava(0, true);
             //System.exit(0);
         } */
-        //configUtils = new ConfigUtils();
-        //Runtime.getRuntime().addShutdownHook(new ShutDown());
 
-    }
-
-    public static String getTitle(String in) {
-        in = Character.toUpperCase(in.toLowerCase().charAt(0)) + in.toLowerCase().substring(1);
-        return in;
     }
 
     public void loadClientCommands() {

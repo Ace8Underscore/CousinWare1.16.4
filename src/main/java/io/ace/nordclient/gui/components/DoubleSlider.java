@@ -3,8 +3,11 @@ package io.ace.nordclient.gui.components;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import io.ace.nordclient.gui.Component;
 import io.ace.nordclient.settings.SettingBase;
-import io.ace.nordclient.utilz.Setting;
+import io.ace.nordclient.utilz.FontRenderUtil;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.util.text.TextFormatting;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -38,21 +41,21 @@ public class DoubleSlider extends Component {
 
     @Override
     public void renderComponent(MatrixStack stack) {
-        //Gui.drawRect(this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 1, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 16, this.hovered ? new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).darker().getRGB() : new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 1, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 16, this.hovered ? new Color(29, 37, 48, 255).darker().getRGB() : new Color(29, 37, 48, 255).getRGB());
         final int drag = (int) (this.set.toSlider().getValue() / this.set.toSlider().max * this.parent.parent.getWidth() + 15);
-       // Gui.drawRect(this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 15, this.parent.parent.getX() + (int) this.renderWidth, this.parent.parent.getY() + this.offset + 16, this.hovered ? new Color(ClickGuiHack.red.getValInt(), ClickGuiHack.green.getValInt(), ClickGuiHack.blue.getValInt(), 255).getRGB() : new Color(ClickGuiHack.red.getValInt(), ClickGuiHack.green.getValInt(), ClickGuiHack.blue.getValInt(), 255).getRGB());
-        //Gui.drawRect(this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 1, new Color(29, 37, 48, ClickGuiHack.alpha.getValInt()).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset + 15, this.parent.parent.getX() + (int) this.renderWidth, this.parent.parent.getY() + this.offset + 16, this.hovered ? new Color(165, 147, 44, 255).getRGB() : new Color(165, 147, 44, 255).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + this.parent.parent.getWidth(), this.parent.parent.getY() + this.offset + 1, new Color(29, 37, 48, 255).getRGB());
         ////FontUtils.drawStringWithShadow(((ClickGuiModule) ModuleManager.getModuleByName("ClickGui")).customFont.getValue(), this.set.getName() + " " + ChatFormatting.GRAY + this.set.getValue(), (int)(this.parent.parent.getX() + 2), this.parent.parent.getY() + this.offset + 4, -1);
-        //Gui.drawRect(this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + 1, this.parent.parent.getY() + this.offset + 16, new Color(ClickGuiHack.red.getValInt(), ClickGuiHack.green.getValInt(), ClickGuiHack.blue.getValInt(), 255).getRGB());
+        AbstractGui.fill(stack, this.parent.parent.getX(), this.parent.parent.getY() + this.offset, this.parent.parent.getX() + 1, this.parent.parent.getY() + this.offset + 16, new Color(165, 147, 44).getRGB());
 
 
       // if (!Core.customFont.getValBoolean())
-        //    mc.fontRenderer.drawStringWithShadow(this.set.getDisplayName(), (int) (this.parent.parent.getX() + 2), this.parent.parent.getY() + this.offset + 4, -1);
+            mc.fontRenderer.drawStringWithShadow(stack, this.set.toSlider().text, (int) (this.parent.parent.getX() + 2), this.parent.parent.getY() + this.offset + 4, -1);
       //  else
          //   CousinWare.INSTANCE.fontRenderer.drawStringWithShadow(this.set.getDisplayName(), this.parent.parent.getX() + 2, this.parent.parent.getY() + this.offset + 4, -1);
 //
        // if (!Core.customFont.getValBoolean())
-        //    FontRenderUtil.drawLeftStringWithShadow(ChatFormatting.GRAY + String.valueOf(this.set.getValDouble()), this.parent.parent.getX() + 95, this.parent.parent.getY() + this.offset + 4, -1);
+            FontRenderUtil.drawLeftStringWithShadow(stack, TextFormatting.GRAY + String.valueOf(this.set.toSlider().value), this.parent.parent.getX() + 95, this.parent.parent.getY() + this.offset + 4, -1);
         //else
         //    FontRenderUtil.drawLeftStringWithShadowCustom(ChatFormatting.GRAY + String.valueOf(this.set.getValDouble()), this.parent.parent.getX() + 94, this.parent.parent.getY() + this.offset + 4, -1);
 

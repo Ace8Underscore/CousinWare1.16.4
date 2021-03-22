@@ -1,11 +1,10 @@
-package io.ace.nordclient.hacks;
+package io.ace.nordclient.hacks.misc;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
+import io.ace.nordclient.hacks.Hack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class Test extends Hack{
+public class Test extends Hack {
 
     public Test() {
         super("Test", Category.MISC, -1, null);

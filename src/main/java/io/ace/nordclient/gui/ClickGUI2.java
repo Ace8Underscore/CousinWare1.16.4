@@ -1,12 +1,8 @@
 package io.ace.nordclient.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import io.ace.nordclient.CousinWare;
-import io.ace.nordclient.gui.components.Button;
 import io.ace.nordclient.hacks.Hack;
-import io.ace.nordclient.hacks.client.ClickGuiHack;
 import io.ace.nordclient.managers.HackManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,7 +13,6 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -49,6 +44,7 @@ public class ClickGUI2 extends Screen {
         MinecraftForge.EVENT_BUS.register(this);
 
     }
+
     @Override
     public void init() {
     }
@@ -94,22 +90,26 @@ public class ClickGUI2 extends Screen {
 
     @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public void onKeyInput(InputEvent.MouseInputEvent event) throws IOException {
-        delay++;
-        if (event.getAction() == 1) {
-            if (event.getButton() == 0) {
-                if (delay > 20) {
-                    mouseClicked(mouseX, mouseY, event.getButton());
-                    delay = 0;
+        if (HackManager.getHackByName("ClickGUI").isEnabled()) {
+            delay++;
+            if (event.getAction() == 1) {
+                if (event.getButton() == 0) {
+                    if (delay > 20) {
+                        mouseClicked(mouseX, mouseY, event.getButton());
+                        delay = 0;
+                    }
                 }
-            }
-            if (event.getButton() == 1) {
-                if (delay > 20) {
-                    mouseClicked(mouseX, mouseY, event.getButton());
-                    delay = 0;
+                if (event.getButton() == 1) {
+                    if (delay > 20) {
+                        mouseClicked(mouseX, mouseY, event.getButton());
+                        delay = 0;
+                    }
                 }
             }
         }
     }
+
+
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
@@ -122,7 +122,7 @@ public class ClickGUI2 extends Screen {
             }
         }
         if (keyCode == 256) {
-            Minecraft.getInstance().displayGuiScreen((Screen) null);
+            //Minecraft.getInstance().displayGuiScreen((Screen) null);
         }
         return false;
     }

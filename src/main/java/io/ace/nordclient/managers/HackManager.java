@@ -1,9 +1,21 @@
 package io.ace.nordclient.managers;
 
+import io.ace.nordclient.event.RenderEvent;
 import io.ace.nordclient.hacks.Hack;
-import io.ace.nordclient.hacks.Test;
 import io.ace.nordclient.hacks.client.ClickGuiHack;
-import io.ace.nordclient.hacks.misc.ChatSuffix;
+import io.ace.nordclient.hacks.combat.Burrow;
+import io.ace.nordclient.hacks.combat.Criticals;
+import io.ace.nordclient.hacks.exploit.*;
+import io.ace.nordclient.hacks.misc.*;
+import io.ace.nordclient.hacks.movement.*;
+import io.ace.nordclient.hacks.player.Scaffold;
+import io.ace.nordclient.hacks.render.NameTags;
+import io.ace.nordclient.hacks.render.StorageESP;
+import io.ace.nordclient.hacks.render.Welcomer;
+import io.ace.nordclient.utilz.NordTessellator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -32,9 +44,9 @@ public class HackManager {
         HackManager.addHack(new AutoPressurePlate());
         HackManager.addHack(new AutoTntMinecart());
         HackManager.addHack(new AutoTotem());
-        HackManager.addHack(new AutoTrap());
+        HackManager.addHack(new AutoTrap()); */
         HackManager.addHack(new Burrow());
-        HackManager.addHack(new Criticals());
+        HackManager.addHack(new Criticals());/*
         HackManager.addHack(new CrystalAura());
         HackManager.addHack(new FastXp());
         HackManager.addHack(new HoleFiller());
@@ -45,71 +57,72 @@ public class HackManager {
         HackManager.addHack(new Surround());
         HackManager.addHack(new Surround2());
         HackManager.addHack(new WebFiller());
-        //exploit
-        //HackManager.addHack(new AutoMinecartRefill());
+        //exploit */
+        HackManager.addHack(new AirPlace());
+        HackManager.addHack(new AutoMinecartRefill());
         HackManager.addHack(new AntiDesync());
         HackManager.addHack(new Blink());
-        //HackManager.addHack(new LagBar());
+        HackManager.addHack(new LagBar());
         HackManager.addHack(new Lagger());
         HackManager.addHack(new NoBreakLoss());
         HackManager.addHack(new NoFallingAni());
         HackManager.addHack(new NoMinecartLag());
-        HackManager.addHack(new NoSlowBypass());
-        HackManager.addHack(new SpeedMine());
+
         //misc
         HackManager.addHack(new AntiRegear());
         HackManager.addHack(new AutoWither());
         //HackManager.addHack(new BedrockFinder());
-        //HackManager.addHack(new BoatBypass()); */
+        //HackManager.addHack(new BoatBypass());
         addHack(new ClickGuiHack());
         addHack(new Test());
-        addHack(new ChatSuffix()); /*
+        addHack(new ChatSuffix());
 
-        HackManager.addHack(new DonkeyAlert());
+        HackManager.addHack(new DonkeyAlert());/*
         HackManager.addHack(new DungannonSpammer());
-        HackManager.addHack(new EnchantColor());
-        HackManager.addHack(new FakePlayer());
-        //HackManager.addHack(new HotbarRefill());
-        HackManager.addHack(new FancyChat());
+        HackManager.addHack(new EnchantColor()); */
+        HackManager.addHack(new FakePlayer());/*
+        //HackManager.addHack(new HotbarRefill()); */
+        HackManager.addHack(new FallSave());/*
         HackManager.addHack(new IllegalFinder());
         HackManager.addHack(new LogoutCoords());
         HackManager.addHack(new MCF());
-        HackManager.addHack(new NoEntityTrace());
-        HackManager.addHack(new NotResponding());
-        // HackManager.addHack(new PlayerEffects());
-        HackManager.addHack(new NoInteract());
+        HackManager.addHack(new NoEntityTrace()); */
+        HackManager.addHack(new NotResponding()); /*
+        // HackManager.addHack(new PlayerEffects()); */
+        HackManager.addHack(new NoInteract());/*
         HackManager.addHack(new QuickDrop());
-        HackManager.addHack(new ShulkerMod());
+        HackManager.addHack(new ShulkerMod());*/
         HackManager.addHack(new Spammer());
         HackManager.addHack(new ToggleMsgs());
         HackManager.addHack(new VisualRange());
         //HackManager.addHack(new TwoBeePacketLogger());
         //movement
         //
+
         HackManager.addHack(new ElytraFly());
         HackManager.addHack(new FastSwim());
         HackManager.addHack(new FastWeb());
         HackManager.addHack(new Fly());
-        HackManager.addHack(new Jesus());
+        //HackManager.addHack(new Jesus());
         HackManager.addHack(new ReverseStep());
         HackManager.addHack(new Sprint());
 
         HackManager.addHack(new Step());
         HackManager.addHack(new Strafe());
-        HackManager.addHack(new Velocity());
+        HackManager.addHack(new Velocity()); /*
         //player
         HackManager.addHack(new AntiVoid());
         HackManager.addHack(new Freecam());
         HackManager.addHack(new GhostGap());
         HackManager.addHack(new NoSlow());
         HackManager.addHack(new NoSlow2b());
-        HackManager.addHack(new PacketCanceller());
-        HackManager.addHack(new Scaffold());
+        HackManager.addHack(new PacketCanceller()); */
+        HackManager.addHack(new Scaffold());/*
         HackManager.addHack(new Timer());
         //render
-        HackManager.addHack(new AntiFog());
+        HackManager.addHack(new AntiFog()); */
         HackManager.addHack(new io.ace.nordclient.hacks.render.ArrayList());
-        HackManager.addHack(new BlockHighlight());
+        /*HackManager.addHack(new BlockHighlight()); /*
         HackManager.addHack(new ClientName());
         HackManager.addHack(new Crystal());
         HackManager.addHack(new FOVchanger());
@@ -117,17 +130,17 @@ public class HackManager {
         HackManager.addHack(new FullBright());
         HackManager.addHack(new HoleESP());
         HackManager.addHack(new InfiniteChatlength());
-        //HackManager.addHack(new ItemESP());
-        //HackManager.addHack(new NameTags());
+        //HackManager.addHack(new ItemESP()); */
+        HackManager.addHack(new NameTags()); /*
         HackManager.addHack(new NoLag());
         HackManager.addHack(new Overlay());
         HackManager.addHack(new PlayerESP());
         HackManager.addHack(new SelfParticle());
-        HackManager.addHack(new SkyColor());
-        HackManager.addHack(new StorageESP());
+        HackManager.addHack(new SkyColor());*/
+        HackManager.addHack(new StorageESP()); /*
         HackManager.addHack(new Swing());
-        HackManager.addHack(new ViewModelChanger());
-        HackManager.addHack(new Welcomer());
+        HackManager.addHack(new ViewModelChanger()); */
+        HackManager.addHack(new Welcomer()); /*
         HackManager.addHack(new io.ace.nordclient.hacks.render.Xray()); */
     }
 
@@ -165,42 +178,30 @@ public class HackManager {
         return HackManager.hacks.stream().filter(hack -> hack.getClass() == clazz).findFirst().orElse(null);
     }
 
-    /*public static void onWorldRender(RenderWorldLastEvent event) {
+    public static void onWorldRender(RenderWorldLastEvent event) {
         Minecraft.getInstance().getProfiler().startSection("nordClient");
 
         Minecraft.getInstance().getProfiler().startSection("setup");
-        GlStateManager.disableTexture();
-        GlStateManager.enableBlend();
-        GlStateManager.disableAlphaTest();
-        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
-        GlStateManager.shadeModel(GL11.GL_SMOOTH);
-        GlStateManager.disableDepthTest();
+        event.getMatrixStack().push();
+        Vector3d renderPos = NordTessellator.getInterpolatedPos(Minecraft.getInstance().player, event.getPartialTicks());
 
-        GlStateManager.glLineWidth(1f);
-        Vec3d renderPos = NordTessellator.getInterpolatedPos(Minecraft.getMinecraft().player, event.getPartialTicks());
-
-        RenderEvent e = new RenderEvent(NordTessellator.INSTANCE, renderPos, event.getPartialTicks());
-        e.resetTranslation();
-        Minecraft.getMinecraft().profiler.endSection();
+        RenderEvent e = new RenderEvent(event.getMatrixStack(), renderPos, event.getPartialTicks());
+        //event.getProjectionMatrix().setTranslation((float) -renderPos.getX(), (float) -renderPos.getY(), (float) -renderPos.getZ());
+        event.getMatrixStack().translate((float) -renderPos.getX(), (float) -renderPos.getY(), (float) -renderPos.getZ());
+        Minecraft.getInstance().profiler.endSection();
 
         hacks.stream().filter(Hack::isEnabled).forEach(module -> {
-            Minecraft.getMinecraft().profiler.startSection(module.getName());
+            Minecraft.getInstance().profiler.startSection(module.getName());
             module.onWorldRender(e);
-            Minecraft.getMinecraft().profiler.endSection();
+            Minecraft.getInstance().profiler.endSection();
         });
 
-        Minecraft.getMinecraft().profiler.startSection("release");
-        GlStateManager.glLineWidth(1f);
-        GlStateManager.shadeModel(GL11.GL_FLAT);
-        GlStateManager.disableBlend();
-        GlStateManager.enableAlpha();
-        GlStateManager.enableTexture2D();
-        GlStateManager.enableDepth();
-        GlStateManager.enableCull();
+        Minecraft.getInstance().profiler.startSection("release");
+        event.getMatrixStack().pop();
         NordTessellator.releaseGL();
-        Minecraft.getMinecraft().profiler.endSection();
-        Minecraft.getMinecraft().profiler.endSection();
-    } */
+        Minecraft.getInstance().profiler.endSection();
+        Minecraft.getInstance().profiler.endSection();
+    }
 
 
     public static void onBind(int key) {

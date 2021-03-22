@@ -2,15 +2,14 @@ package io.ace.nordclient.hacks;
 
 import io.ace.nordclient.CousinWare;
 import io.ace.nordclient.command.Command;
+import io.ace.nordclient.event.RenderEvent;
 import io.ace.nordclient.managers.HackManager;
 import io.ace.nordclient.settings.SettingBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -74,8 +73,8 @@ public class Hack {
     public void onUpdate() {
     }
 
-   // public void onWorldRender(RenderEvent event) {
-    //}
+    public void onWorldRender(RenderEvent event) {}
+
 
     protected void onEnable() {
     }
@@ -114,9 +113,9 @@ public class Hack {
         visableOnArray = true;
         anima = 0;
         setEnabled(true);
-        //if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
+        if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
             Command.sendClientSideMessage("Enabled " + TextFormatting.GREEN + this.name);
-        //}
+        }
         //MinecraftForge.EVENT_BUS.register(this);
         onEnable();
     }
@@ -125,9 +124,9 @@ public class Hack {
         CousinWare.EVENT_BUS.unsubscribe(this);
         MinecraftForge.EVENT_BUS.unregister(this);
         setEnabled(false);
-        //if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
+        if (HackManager.getHackByName("ToggleMsgs").isEnabled() && !this.name.equalsIgnoreCase("clickgui")) {
             Command.sendClientSideMessage("Disabled " + TextFormatting.RED + this.name);
-        //}
+        }
         //MinecraftForge.EVENT_BUS.unregister(this);
         onDisable();
     }

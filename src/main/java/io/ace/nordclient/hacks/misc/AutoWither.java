@@ -1,0 +1,173 @@
+package io.ace.nordclient.hacks.misc;
+
+import io.ace.nordclient.command.Command;
+import io.ace.nordclient.hacks.Hack;
+import io.ace.nordclient.settings.SettingBase;
+import io.ace.nordclient.settings.SettingSlider;
+import io.ace.nordclient.utilz.BlockInteractionHelper;
+import io.ace.nordclient.utilz.InventoryUtil;
+import io.ace.nordclient.utilz.Setting;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class AutoWither extends Hack {
+
+    Vector3d startPos;
+    int soulSandItem;
+    int witherSkullItem;
+    int blockPlaced = 0;
+    int skullPlaced = 0;
+    int delay = 0;
+    boolean north;
+    boolean south;
+    boolean east;
+    boolean west;
+
+    Setting placeDelay;
+
+    private static final List<SettingBase> settings = Arrays.asList(
+            new SettingSlider(0, 20, 2, 0, "Delay"));
+
+    public AutoWither() {
+        super("AutoWither", Category.MISC, 11960185, settings);
+        //CousinWare.INSTANCE.settingsManager.rSetting(placeDelay = new Setting("PlaceDelay", this, 2, 0, 20, true, "AutoWitherPlaceDelay"));
+    }
+
+    @Override
+    public void onUpdate() {
+        delay++;
+        if (blockPlaced < 4) {
+            placeSoulSand();
+        }
+        if (blockPlaced >= 4 && skullPlaced < 4) {
+            placeSkull();
+        }
+        if (skullPlaced >= 3) {
+            this.disable();
+        }
+    }
+
+    public void placeSoulSand() {
+        Vector3d[] soulSandPosNorthSouth = new Vector3d[]{
+                new Vector3d(0, 0, 0),
+                new Vector3d(0, 1, 0),
+                new Vector3d(1, 1, 0),
+                new Vector3d(-1, 1, 0),
+        };
+        Vector3d[] soulSandPosEastWest = new Vector3d[]{
+                new Vector3d(0, 0, 0),
+                new Vector3d(0, 1, 0),
+                new Vector3d(0, 1, 1),
+                new Vector3d(0, 1, -1),
+        };
+        if (soulSandItem == -1) {
+            Command.sendClientSideMessage("No SoulSand Toggling");
+            this.toggle();
+        } else {
+            mc.player.inventory.currentItem = soulSandItem;
+        }
+        for (int i = 0; i < 4; i++) {
+            BlockPos start = null;
+            if (north || south) {
+                start = new BlockPos(startPos.add(soulSandPosNorthSouth[i]));
+            }
+            if (east || west) {
+                start = new BlockPos(startPos.add(soulSandPosEastWest[i]));
+            }
+            if (start == null)
+                return;
+            if (mc.world.getBlockState(start).getMaterial().isReplaceable()) {
+                if (delay > settings.get(0).toSlider().getValue()) {
+                    Command.sendClientSideMessage("Placing at" + start);
+                    BlockInteractionHelper.placeBlockScaffold(start.up(), false);
+                    blockPlaced++;
+                    delay = 0;
+                }
+            }
+        }
+
+    }
+
+
+    public void placeSkull() {
+        Vector3d[] witherSkullPosNorthSouth = new Vector3d[]{
+                new Vector3d(-1, 2, 0),
+                new Vector3d(0, 2, 0),
+                new Vector3d(1, 2, 0),
+        };
+        Vector3d[] witherSkullPosEastWest = new Vector3d[]{
+                new Vector3d(0, 2, -1),
+                new Vector3d(0, 2, 0),
+                new Vector3d(0, 2, 1),
+        };
+        if (witherSkullItem == -1) {
+            Command.sendClientSideMessage("No WitherSkulls Toggling");
+            this.toggle();
+        } else {
+            mc.player.inventory.currentItem = witherSkullItem;
+        }
+        for (int i = 0; i < 3; i++) {
+            BlockPos start2 = null;
+            if (north || south) {
+                start2 = new BlockPos(startPos.add(witherSkullPosNorthSouth[i]));
+            }
+            if (east || west) {
+                start2 = new BlockPos(startPos.add(witherSkullPosEastWest[i]));
+            }
+            if (start2 == null)
+                return;
+            if (mc.world.getBlockState(start2).getMaterial().isReplaceable()) {
+                if (delay > settings.get(0).toSlider().getValue()) {
+                    BlockInteractionHelper.placeBlockScaffold(start2, false);
+                    skullPlaced++;
+                    delay = 0;
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void onEnable() {
+        startPos = mc.objectMouseOver.getHitVec();
+        soulSandItem = InventoryUtil.findBlockInHotbar(Blocks.SOUL_SAND);
+        witherSkullItem = InventoryUtil.findItemInHotbar(Items.WITHER_SKELETON_SKULL);
+        blockPlaced = 0;
+        skullPlaced = 0;
+        delay = 0;
+        int dir = MathHelper.floor((double) (Minecraft.getInstance().player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+
+        if (dir == 2) {
+
+            north = true;
+        }
+
+        if (dir == 1) {
+
+            west = true;
+        }
+        if (dir == 3) {
+
+            east = true;
+        }
+        if (dir == 0) {
+
+            south = true;
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        north = false;
+        south = false;
+        east = false;
+        west = false;
+    }
+}

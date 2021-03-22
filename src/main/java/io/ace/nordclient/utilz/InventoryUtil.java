@@ -38,6 +38,31 @@ public class InventoryUtil {
 
     }
 
+    public static int findRandomBlockInHotbar() {
+
+        // search blocks in hotbar
+        int slot = -1;
+        for (int i = 0; i < 9; i++) {
+
+            // filter out non-block items
+            ItemStack stack = mc.player.inventory.getStackInSlot(i);
+
+            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof BlockItem)) {
+                continue;
+            }
+
+            Block block = ((BlockItem) stack.getItem()).getBlock();
+
+                slot = i;
+                break;
+
+
+        }
+
+        return slot;
+
+    }
+
     public static int findItemInHotbar(Item itemToFind) {
 
         // search blocks in hotbar

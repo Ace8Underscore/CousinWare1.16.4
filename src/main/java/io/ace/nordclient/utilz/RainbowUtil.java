@@ -1,5 +1,7 @@
 package io.ace.nordclient.utilz;
 
+import io.ace.nordclient.settings.SettingBase;
+
 import java.awt.*;
 
 /**
@@ -26,19 +28,25 @@ public class RainbowUtil {
         return Color.getHSBColor((float) (rainbowState / 360.0f), 0.70f, 1f).getRGB();
     }
 
-    public static void settingRainbow(Setting r, Setting g, Setting b) {
+    public static void settingRainbow(SettingBase r, SettingBase g, SettingBase b) {
 
-        //float[] tick_color = {(float) ((System.currentTimeMillis() % (360 * 32)) / (360f * 32) * Core.speed.getValDouble())};
+        float[] tick_color = {(float) ((System.currentTimeMillis() % (360 * 32)) / (360f * 32) * 1
+                //Core.speed.getValDouble()
+         )};
 
-       // int colorRGB = Color.HSBtoRGB(tick_color[0], (float) Core.saturation.getValDouble(), (float) Core.brightness.getValDouble());
+        int colorRGB = Color.HSBtoRGB(tick_color[0],
+                (float) .8,
+                        //Core.saturation.getValDouble(),
+                 (float) 1);
+                         //Core.brightness.getValDouble());
 
-       //// r.setValDouble((colorRGB >> 16) & 0xFF);
-       // g.setValDouble((colorRGB >> 8) & 0xFF);
-       // b.setValDouble(colorRGB & 0xFF);
+        r.toSlider().setValue((colorRGB >> 16) & 0xFF);
+        g.toSlider().setValue((colorRGB >> 8) & 0xFF);
+        b.toSlider().setValue((colorRGB & 0xFF));
 
     }
 
-    public static void settingRainbowArrayList(Setting r, Setting g, Setting b, int delay) {
+    public static void settingRainbowArrayList(SettingBase r, SettingBase g, SettingBase b, int delay) {
 
         double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
         rainbowState %= 360;
