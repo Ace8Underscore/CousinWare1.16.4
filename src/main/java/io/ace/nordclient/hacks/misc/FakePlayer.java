@@ -3,7 +3,6 @@ package io.ace.nordclient.hacks.misc;
 import com.mojang.authlib.GameProfile;
 import io.ace.nordclient.hacks.Hack;
 import net.minecraft.client.entity.player.RemoteClientPlayerEntity;
-import net.minecraft.entity.Entity;
 
 import java.util.UUID;
 
@@ -26,11 +25,10 @@ public class FakePlayer extends Hack {
 
     @Override
     public void onDisable() {
-        for (Entity entity1 : mc.world.getAllEntities()) {
-            if (entity1.getEntity() == entity) {
+        //for (Entity entity1 : mc.world.getAllEntities()) {
                 mc.world.removeEntity(entity);
-            }
-        }
+          //  }
+
 
     }
 

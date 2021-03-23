@@ -196,7 +196,7 @@ public class FileMang {
         StringBuilder lines = new StringBuilder();
 
         for (Hack h : HackManager.getHacks()) {
-            if (!h.getName().equalsIgnoreCase("ClickGui") && !h.getName().equalsIgnoreCase("fakeplayer")) {
+            if (!h.getName().equalsIgnoreCase("ClickGui") && !h.getName().equalsIgnoreCase("fakeplayer") && !h.getName().equalsIgnoreCase("autotrap")) {
                 lines.append(h.getName()).append(":").append(h.isEnabled()).append("\n");
             }
         }

@@ -59,7 +59,7 @@ public class Scaffold extends Hack {
                 }
 
                 if (mc.world.getBlockState(below).getMaterial().isReplaceable()) {
-                    BlockInteractionHelper.placeBlockScaffold(below, true);
+                    BlockInteractionHelper.placeBlockScaffold(below);
                 }
             }
         }
@@ -127,7 +127,7 @@ public class Scaffold extends Hack {
             //BlockInteractionHelper.placeBlockScaffold(belowNorth);
             if (mc.world.getBlockState(belowSouth).getMaterial().isReplaceable()) {
                 if (mc.player.getMotion().getZ() < -.05) {
-                    BlockInteractionHelper.placeBlockScaffold(belowSouth, true);
+                    BlockInteractionHelper.placeBlockScaffold(belowSouth);
                 }
             //}
 
@@ -137,7 +137,7 @@ public class Scaffold extends Hack {
             //mc.player.sendChatMessage("Your Looking West");
             if (mc.world.getBlockState(belowEast).getMaterial().isReplaceable()) {
                 if (mc.player.getMotion().getX() < -.05) {
-                    BlockInteractionHelper.placeBlockScaffold(belowEast, true);
+                    BlockInteractionHelper.placeBlockScaffold(belowEast);
                // }
             }
         }
@@ -146,7 +146,7 @@ public class Scaffold extends Hack {
             if (mc.world.getBlockState(belowWest).getMaterial().isReplaceable()) {
                 if (mc.player.getMotion().getX() > .05) {
 
-                    BlockInteractionHelper.placeBlockScaffold(belowWest, true);
+                    BlockInteractionHelper.placeBlockScaffold(belowWest);
                 }
             }
         }
@@ -154,7 +154,7 @@ public class Scaffold extends Hack {
             //mc.player.sendChatMessage("Your Looking South");
             if (mc.world.getBlockState(belowNorth).getMaterial().isReplaceable()) {
                 if (mc.player.getMotion().getZ() > .05) {
-                    BlockInteractionHelper.placeBlockScaffold(belowNorth, true);
+                    BlockInteractionHelper.placeBlockScaffold(belowNorth);
 
                // }//
             }
@@ -163,7 +163,7 @@ public class Scaffold extends Hack {
             if (mc.world.getBlockState(below).getMaterial().isReplaceable()) {
                 if (mc.gameSettings.keyBindJump.isKeyDown()) {
                     //MotionUtil.setMotionY(.3600);
-                    BlockInteractionHelper.placeBlockScaffold(below, true);
+                    BlockInteractionHelper.placeBlockScaffold(below);
                 }
             }
         }

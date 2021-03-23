@@ -1,5 +1,6 @@
 package io.ace.nordclient.utilz;
 
+import io.ace.nordclient.hacks.client.Core;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -45,23 +46,22 @@ public class BlockInteractionHelper {
         return stack.getItem() instanceof BlockItem;
     }
 
-    public static void placeBlockScaffold(final BlockPos pos, boolean swing) {
+    public static void placeBlockScaffold(final BlockPos pos) {
         final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
         for (final Direction side : Direction.values()) {
             final BlockPos neighbor = pos.offset(side);
             final Direction side2 = side.getOpposite();
-            //if (canBeClicked(neighbor)) {
-                final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
+                final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, 0, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
 
                 if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
                     faceVectorPacketInstant(hitVec);
-                    if (swing) mc.player.swingArm(Hand.MAIN_HAND);
+                    processRightClickBlock(neighbor, side2, hitVec);
+                    //Command.sendClientSideMessage(" - Place Pos " + neighbor + " - Direction " + side2 + " - HitVec " + hitVec);
+                    if (Core.settings.get(0).toMode().getModeValue(Core.settings.get(0).toMode().mode).equalsIgnoreCase("ClientSide")) mc.player.swingArm(Hand.MAIN_HAND);
                     else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
-
-                    //mc.rightClickDelayTimer = 4;
                     return;
-                }
-            //}
+
+            }
         }
     }
 
@@ -110,7 +110,7 @@ public class BlockInteractionHelper {
  else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
     } */
 
-    public static void placeBlockScaffoldStrict(final BlockPos pos, boolean swing) {
+    public static void placeBlockScaffoldStrict(final BlockPos pos) {
         BlockPos neighbor = null;
         Direction side2 = null;
         if (findBlockFacingLocationBlock(pos) == 1) {
@@ -139,8 +139,9 @@ public class BlockInteractionHelper {
         final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
         faceVectorPacketInstant(hitVec);
         processRightClickBlock(neighbor, side2, hitVec);
-        if (swing) mc.player.swingArm(Hand.MAIN_HAND);
-        else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
+        //Command.sendClientSideMessage(" - Place Pos " + neighbor + " - Direction " + side2 + " - HitVec " + hitVec);
+        if (Core.settings.get(0).toMode().getModeValue(Core.settings.get(0).toMode().mode).equalsIgnoreCase("ClientSide")) mc.player.swingArm(Hand.MAIN_HAND);
+                    else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
 
     }
 
@@ -242,7 +243,7 @@ public class BlockInteractionHelper {
         return direction;
     }
 
-    public static void placeBlockScaffoldPiston(final BlockPos pos, final BlockPos look, boolean swing) {
+    public static void placeBlockScaffoldPiston(final BlockPos pos, final BlockPos look) {
         final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
         for (final Direction side : Direction.values()) {
             final BlockPos neighbor = pos.offset(side);
@@ -255,8 +256,8 @@ public class BlockInteractionHelper {
 
             //if (eyesPos.squareDistanceTo(hitVec) <= 18.0625) {
                     faceVectorPacketInstant(hitVecLook);
-                    processRightClickBlock(neighbor, side2, hitVec);
-                    if (swing) mc.player.swingArm(Hand.MAIN_HAND);
+                    processRightClickBlock(pos, side2, hitVec);
+                    if (Core.settings.get(0).toMode().getModeValue(Core.settings.get(0).toMode().mode).equalsIgnoreCase("ClientSide")) mc.player.swingArm(Hand.MAIN_HAND);
                     else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
                     //mc.rightClickDelayTimer = 4;
                     return;
@@ -265,7 +266,24 @@ public class BlockInteractionHelper {
         }
     }
 
-    public static void placeBlockScaffoldNoRotate(final BlockPos pos, boolean swing) {
+    public static void placeBlockScaffoldNoRotateDown(final BlockPos pos) {
+        final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
+        for (final Direction side : Direction.values()) {
+            final BlockPos neighbor = pos.offset(side);
+            final Direction side2 = side.getOpposite();
+            // if (canBeClicked(neighbor)) {
+            final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
+            processRightClickBlock(neighbor, Direction.DOWN, hitVec);
+            if (Core.settings.get(0).toMode().getModeValue(Core.settings.get(0).toMode().mode).equalsIgnoreCase("ClientSide")) mc.player.swingArm(Hand.MAIN_HAND);
+            else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
+            //mc.rightClickDelayTimer = 4;
+            return;
+
+            //}
+        }
+    }
+
+    public static void placeBlockScaffoldNoRotate(final BlockPos pos) {
         final Vector3d eyesPos = new Vector3d(mc.player.getPosX(), mc.player.getPosY() + mc.player.getEyeHeight(), mc.player.getPosZ());
         for (final Direction side : Direction.values()) {
             final BlockPos neighbor = pos.offset(side);
@@ -273,8 +291,8 @@ public class BlockInteractionHelper {
            // if (canBeClicked(neighbor)) {
             final Vector3d hitVec = new Vector3d(new Vector3f(neighbor.getX(), neighbor.getY(), neighbor.getZ())).add(.5, .5, .5).add(new Vector3d(side2.toVector3f()).scale(0.5));
                 processRightClickBlock(neighbor, side2, hitVec);
-                if (swing) mc.player.swingArm(Hand.MAIN_HAND);
-                else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
+                if (Core.settings.get(0).toMode().getModeValue(Core.settings.get(0).toMode().mode).equalsIgnoreCase("ClientSide")) mc.player.swingArm(Hand.MAIN_HAND);
+                    else mc.player.connection.sendPacket(new CAnimateHandPacket(Hand.MAIN_HAND));
                 //mc.rightClickDelayTimer = 4;
                 return;
 
@@ -333,16 +351,17 @@ public class BlockInteractionHelper {
     public static void faceVectorPacketInstant(final Vector3d vec) {
         final float[] rotations = getLegitRotations(vec);
         mc.player.connection.sendPacket(new CPlayerPacket.RotationPacket(rotations[0], rotations[1], mc.player.isOnGround()));
+
     }
 
-    private static void processRightClickBlock(final BlockPos neighbor, final Direction side2, final Vector3d hitVec) {
+    public static void processRightClickBlock(final BlockPos neighbor, final Direction side2, final Vector3d hitVec) {
         mc.player.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, new BlockRayTraceResult(hitVec, side2, neighbor, false)));
 
     }
 
-  /*  public static boolean canBeClicked(final BlockPos pos) {
-        return getBlock(pos).
-    } */
+   /* public static boolean canBeClicked(final BlockPos pos) {
+        return mc.world.getBlockState(pos).coll;
+    }*/
 
     private static Block getBlock(final BlockPos pos) {
         return getState(pos).getBlock();

@@ -3,12 +3,15 @@ package io.ace.nordclient.managers;
 import io.ace.nordclient.event.RenderEvent;
 import io.ace.nordclient.hacks.Hack;
 import io.ace.nordclient.hacks.client.ClickGuiHack;
+import io.ace.nordclient.hacks.client.Core;
+import io.ace.nordclient.hacks.combat.AutoTrap;
 import io.ace.nordclient.hacks.combat.Burrow;
 import io.ace.nordclient.hacks.combat.Criticals;
 import io.ace.nordclient.hacks.exploit.*;
 import io.ace.nordclient.hacks.misc.*;
 import io.ace.nordclient.hacks.movement.*;
 import io.ace.nordclient.hacks.player.Scaffold;
+import io.ace.nordclient.hacks.render.AntiFog;
 import io.ace.nordclient.hacks.render.NameTags;
 import io.ace.nordclient.hacks.render.StorageESP;
 import io.ace.nordclient.hacks.render.Welcomer;
@@ -35,16 +38,16 @@ public class HackManager {
         //client
        /* HackManager.addHack(new ClickGuiHack());
         HackManager.addHack(new ClickGuiHack2());
-        HackManager.addHack(new ClickGuiHudHack());
+        HackManager.addHack(new ClickGuiHudHack()); */
         HackManager.addHack(new Core());
         //combat
-        HackManager.addHack(new Aura());
+        /*HackManager.addHack(new Aura());
         HackManager.addHack(new AutoBedBombDumb());
         HackManager.addHack(new AutoOffHand());
         HackManager.addHack(new AutoPressurePlate());
         HackManager.addHack(new AutoTntMinecart());
-        HackManager.addHack(new AutoTotem());
-        HackManager.addHack(new AutoTrap()); */
+        HackManager.addHack(new AutoTotem()); */
+        HackManager.addHack(new AutoTrap());
         HackManager.addHack(new Burrow());
         HackManager.addHack(new Criticals());/*
         HackManager.addHack(new CrystalAura());
@@ -84,14 +87,15 @@ public class HackManager {
         //HackManager.addHack(new HotbarRefill()); */
         HackManager.addHack(new FallSave());/*
         HackManager.addHack(new IllegalFinder());
-        HackManager.addHack(new LogoutCoords());
-        HackManager.addHack(new MCF());
+        HackManager.addHack(new LogoutCoords()); */
+        HackManager.addHack(new MCF());/*
         HackManager.addHack(new NoEntityTrace()); */
         HackManager.addHack(new NotResponding()); /*
         // HackManager.addHack(new PlayerEffects()); */
         HackManager.addHack(new NoInteract());/*
         HackManager.addHack(new QuickDrop());
         HackManager.addHack(new ShulkerMod());*/
+
         HackManager.addHack(new Spammer());
         HackManager.addHack(new ToggleMsgs());
         HackManager.addHack(new VisualRange());
@@ -119,8 +123,8 @@ public class HackManager {
         HackManager.addHack(new PacketCanceller()); */
         HackManager.addHack(new Scaffold());/*
         HackManager.addHack(new Timer());
-        //render
-        HackManager.addHack(new AntiFog()); */
+        //render */
+        HackManager.addHack(new AntiFog());
         HackManager.addHack(new io.ace.nordclient.hacks.render.ArrayList());
         /*HackManager.addHack(new BlockHighlight()); /*
         HackManager.addHack(new ClientName());

@@ -86,7 +86,7 @@ public class AutoWither extends Hack {
             if (mc.world.getBlockState(start).getMaterial().isReplaceable()) {
                 if (delay > settings.get(0).toSlider().getValue()) {
                     Command.sendClientSideMessage("Placing at" + start);
-                    BlockInteractionHelper.placeBlockScaffold(start.up(), false);
+                    BlockInteractionHelper.placeBlockScaffold(start.up());
                     blockPlaced++;
                     delay = 0;
                 }
@@ -125,7 +125,7 @@ public class AutoWither extends Hack {
                 return;
             if (mc.world.getBlockState(start2).getMaterial().isReplaceable()) {
                 if (delay > settings.get(0).toSlider().getValue()) {
-                    BlockInteractionHelper.placeBlockScaffold(start2, false);
+                    BlockInteractionHelper.placeBlockScaffold(start2);
                     skullPlaced++;
                     delay = 0;
                 }

@@ -42,7 +42,7 @@ public class Burrow extends Hack {
     int useItem;
 
     private static final List<SettingBase> settings = Arrays.asList(
-            new SettingSlider(0, 8, 4, 0, "Delay"),
+            new SettingSlider(0, 8, 0, 0, "Delay"),
             new SettingSlider(.5, 10, 1, 0, "LagBackPower"),
             new SettingToggle(true, "NoForceRotate"),
             new SettingMode("BlockMode ", "Obi", "Echest"),
@@ -66,12 +66,12 @@ public class Burrow extends Hack {
                 mc.player.connection.sendPacket(new CPlayerPacket.PositionPacket(mc.player.getPosX(), mc.player.getPosY() + 0.7531999805211997D, mc.player.getPosZ(), true));
                 mc.player.connection.sendPacket(new CPlayerPacket.PositionPacket(mc.player.getPosX(), mc.player.getPosY() + 1.00133597911214D, mc.player.getPosZ(), true));
                 mc.player.connection.sendPacket(new CPlayerPacket.PositionPacket(mc.player.getPosX(), mc.player.getPosY() + 1.16610926093821D, mc.player.getPosZ(), true));
-                BlockInteractionHelper.placeBlockScaffold(pos.up(), false);
+                BlockInteractionHelper.placeBlockScaffold(pos.up());
                 mc.player.connection.sendPacket(new CPlayerTryUseItemOnBlockPacket(Hand.MAIN_HAND, new BlockRayTraceResult(new Vector3d(0, 0, 0), Direction.UP, pos, false)));
                 //mc.player.inventory.currentItem = startingHand;
             } else {
                 mc.player.inventory.currentItem = useItem;
-                BlockInteractionHelper.placeBlockScaffold(pos, false);
+                BlockInteractionHelper.placeBlockScaffold(pos);
                 mc.player.inventory.currentItem = startingHand;
             }
             if (getSettings().get(4).toMode().getModeValue(getSettings().get(4).toMode().mode).equalsIgnoreCase("fly")) {

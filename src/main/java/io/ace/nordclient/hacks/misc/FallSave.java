@@ -20,10 +20,11 @@ public class FallSave extends Hack {
 
     @Override
     public void onUpdate() {
-        mc.player.connection.sendPacket(new CHeldItemChangePacket(slot));
-        //mc.player.connection.sendPacket(new CPlayerPacket.RotationPacket(mc.player.rotationYaw, 90,mc.player.isOnGround()));
-        BlockInteractionHelper.placeBlockScaffoldNoRotate(PlayerUtil.getPlayerPos().down(2), false);
-        mc.player.connection.sendPacket(new CHeldItemChangePacket(slotBefore));
+        if (mc.world.getBlockState(PlayerUtil.getPlayerPos().down(1)).getMaterial().isReplaceable()) {
+            mc.player.connection.sendPacket(new CHeldItemChangePacket(slot));
+            BlockInteractionHelper.placeBlockScaffoldNoRotate(PlayerUtil.getPlayerPos().down(1));
+            mc.player.connection.sendPacket(new CHeldItemChangePacket(slotBefore));
+        }
        // this.disable();
     }
 
