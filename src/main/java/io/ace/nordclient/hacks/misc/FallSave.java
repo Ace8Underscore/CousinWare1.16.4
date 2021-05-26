@@ -35,6 +35,7 @@ public class FallSave extends Hack {
             this.disable();
         } else {
             slot = InventoryUtil.findRandomBlockInHotbar();
+            mc.player.rotationPitch += 0.0004;
         }
 
     }

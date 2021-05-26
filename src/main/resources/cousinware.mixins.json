@@ -5,6 +5,7 @@
   "refmap": "cousinware.refmap.json",
   "mixins": [
     "MixinEntityPlayerSP",
+    "MixinGameRenderer",
     "MixinNetworkManager"
   ],
   "minVersion": "0.8"

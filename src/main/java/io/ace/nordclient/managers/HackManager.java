@@ -80,16 +80,16 @@ public class HackManager {
         addHack(new Test());
         addHack(new ChatSuffix());
 
-        HackManager.addHack(new DonkeyAlert());/*
-        HackManager.addHack(new DungannonSpammer());
+        HackManager.addHack(new DonkeyAlert());
+        HackManager.addHack(new DungannonSpammer()); /*
         HackManager.addHack(new EnchantColor()); */
         HackManager.addHack(new FakePlayer());/*
         //HackManager.addHack(new HotbarRefill()); */
         HackManager.addHack(new FallSave());/*
         HackManager.addHack(new IllegalFinder());
         HackManager.addHack(new LogoutCoords()); */
-        HackManager.addHack(new MCF());/*
-        HackManager.addHack(new NoEntityTrace()); */
+        HackManager.addHack(new MCF());
+        HackManager.addHack(new NoEntityTrace());
         HackManager.addHack(new NotResponding()); /*
         // HackManager.addHack(new PlayerEffects()); */
         HackManager.addHack(new NoInteract());/*
